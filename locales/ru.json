@@ -587,7 +587,40 @@
         "free_total_label": "Бесплатно",
         "paid_label": "Оплачено",
         "payment_due_label": "Срок совершения платежа",
-        "vat_label_html": "В том числе %{amount} в виде налогов"
+        "vat_label_html": "В том числе %{amount} в виде налогов",
+        "discount_and_gift_card_savings_notice": "С учетом скидки на %{discount_amount} и подарочных карт на сумму %{gift_card_amount}",
+        "discount_savings_notice": "С учетом скидки на сумму %{discount_amount}",
+        "gift_card_savings_notice": "С учетом подарочных карт на сумму %{gift_card_amount}",
+        "cost_table_title": "Общая стоимость",
+        "description_label": "Описание",
+        "price_label": "Цена",
+        "quantity_label": "Количество",
+        "product_change_label": "Изменить",
+        "product_image_label": "Изображение продукта",
+        "scroll_order_summary": "Прокрутите, чтобы увидеть больше товаров",
+        "expand_order_summary": "Показать детали заказа",
+        "collapse_order_summary": "Скрыть детали заказа",
+        "original_price": "Начальная цена",
+        "sale_price": "Цена со скидкой",
+        "total_updated_label": "Обновленная общая сумма:",
+        "order_total_updated_label": "Обновленная общая сумма",
+        "total_already_paid_label": "Уже оплачено",
+        "unit_price": {
+          "accessible_separator": "за",
+          "content_html": "%{price}%{accessible_separator}%{per_unit}"
+        },
+        "gift_card_ending": "Подарочная карта, номер которой заканчивается на %{last_characters}",
+        "estimated_tax_label": "Ориентировочная сумма налогов",
+        "multiple_shipping_lines_label": "Общая сумма доставки",
+        "recurring_total_label": "Итого",
+        "recurring_total_tooltip": "Не включает доставку, налоги, сборы или возможные скидки.",
+        "confirmation_number_label": "Подтверждение №%{confirmation_number}",
+        "higher_value_discount_already_applied": "Промокод с более высокой скидкой уже был использован."
+      },
+      "shipping": {
+        "title": "Доставка",
+        "shipping_method_title": "Способ доставки",
+        "shipping_method_one_time_purchase_group_title": "Разовая покупка"
       }
     }
   }
