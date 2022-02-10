@@ -1,0 +1,38 @@
+<header class="announcement-bar-ecomm">
+    {% for lang in localization.available_languages %}
+        {{lang.name}}{{lang.iso_code}}
+    {%endfor%}
+</header>
+
+<style>
+    .announcement-bar-ecomm {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+        padding: 26px 5%;
+    }
+</style>
+
+{%- style -%}
+.ecomm-menu-item>a:hover{
+color: {{settings.main_color_1}};
+}
+{%- endstyle -%}
+
+{% schema %}
+{
+"name": "Announcement bar ecomm",
+"settings": [
+
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+
+{% endjavascript %}

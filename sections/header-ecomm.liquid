@@ -1,0 +1,81 @@
+<header class="header-ecomm">
+  <a href="/" class="ecomm-logo-wrap">
+    {% render 'ecomm-logo' %}
+  </a>
+  <nav id="ecomm-header-menu">
+    <ul id="ecomm-menu">
+      {% for link in linklists.main-menu.links %}
+      <li class="ecomm-menu-item">
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+</header>
+
+<style>
+  .header-ecomm {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 26px 5%;
+  }
+
+  .ecomm-logo-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #ecomm-menu {
+    display: flex;
+    flex-flow: row nowrap;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .ecomm-menu-item {
+    margin: 0 50px;
+  }
+
+  .ecomm-menu-item>a {
+    text-decoration: none;
+    color: initial;
+    font-weight: 500;
+    font-size: 24px;
+    transition: color 0.3s;
+  }
+
+  .ecomm-menu-item>a:visited {
+    color: initial;
+  }
+</style>
+
+{%- style -%}
+.ecomm-menu-item>a:hover{
+color: {{settings.main_color_1}};
+}
+{%- endstyle -%}
+
+{% schema %}
+{
+"name": "Header ecomm",
+"settings": [
+{
+"type": "link_list",
+"id": "menu",
+"default": "main-menu",
+"label": "t:sections.header.settings.menu.label"
+}
+]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
