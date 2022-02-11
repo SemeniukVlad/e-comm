@@ -216,6 +216,12 @@
     .arrow-dropdown-up {
         transform: rotate(180deg);
     }
+
+    @media screen and (max-width: 990px) {
+    .announcement-bar-ecomm {
+      display: none;
+    }
+  }
 </style>
 
 {%- style -%}
@@ -229,7 +235,12 @@ color: white;
 }
 .announcement-bar-ecomm{
 background-color: {{section.settings.announcement_background}};
+{%- if section.settings.show_divider -%}
+border-bottom: 2px solid #FAFAFB;
+{%- endif -%}
 }
+
+
 {%- endstyle -%}
 
 {% schema %}
@@ -253,6 +264,12 @@ background-color: {{section.settings.announcement_background}};
 "type": "checkbox",
 "id": "show_currency",
 "label": "Show currency switcher",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "show_divider",
+"label": "Show divider",
 "default": true
 }
 ]

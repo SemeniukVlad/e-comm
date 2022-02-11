@@ -1,16 +1,62 @@
-<header class="header-ecomm">
-  <a href="/" class="ecomm-logo-wrap">
-    {% render 'ecomm-logo' %}
-  </a>
-  <nav id="ecomm-header-menu">
-    <ul id="ecomm-menu">
-      {% for link in linklists.main-menu.links %}
-      <li class="ecomm-menu-item">
-        <a href="{{ link.url }}">{{ link.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </nav>
+<header class="header-ecomm-wrap">
+  <div class="header-ecomm">
+    <a href="/" class="ecomm-logo-wrap">
+      {% render 'ecomm-logo' %}
+    </a>
+    <nav id="ecomm-header-menu">
+      <ul id="ecomm-menu">
+        {% for link in linklists.main-menu.links %}
+        <li class="ecomm-menu-item">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </div>
+  <div class="header-ecomm-mob">
+    <nav>
+      <div class="header-mob-item-wrap">
+        <a href="#" class="header-ecomm-mob-item">
+          {% include "icon-mob-home"%}
+          <p>
+            Home
+          </p>
+        </a>
+      </div>
+      <div class="header-mob-item-wrap">
+        <a href="#" class="header-ecomm-mob-item">
+          {% include "icon-mob-explore"%}
+          <p>
+            Explore
+          </p>
+        </a>
+      </div>
+      <div class="header-mob-item-wrap">
+        <a href="#" class="header-ecomm-mob-item">
+          {% include "icon-mob-cart"%}
+          <p>
+            Cart
+          </p>
+        </a>
+      </div>
+      <div class="header-mob-item-wrap">
+        <a href="#" class="header-ecomm-mob-item">
+          {% include "icon-mob-offer"%}
+          <p>
+            Offer
+          </p>
+        </a>
+      </div>
+      <div class="header-mob-item-wrap">
+        <a href="#" class="header-ecomm-mob-item">
+          {% include "icon-mob-account"%}
+          <p>
+            Account
+          </p>
+        </a>
+      </div>
+    </nav>
+  </div>
 </header>
 
 <style>
@@ -41,8 +87,9 @@
   }
 
   .ecomm-menu-item:first-of-type {
-    margin: 0  50px 0 0;
+    margin: 0 50px 0 0;
   }
+
   .ecomm-menu-item:last-of-type {
     margin: 0 0 0 50px;
   }
@@ -57,6 +104,75 @@
 
   .ecomm-menu-item>a:visited {
     color: initial;
+  }
+
+  .header-ecomm-mob {
+    display: none;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .ecomm-menu-item {
+      margin: 0 25px;
+    }
+
+    .ecomm-menu-item:first-of-type {
+      margin: 0 25px 0 0;
+    }
+
+    .ecomm-menu-item:last-of-type {
+      margin: 0 0 0 25px;
+    }
+
+    .ecomm-menu-item>a {
+      font-size: 20px;
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    .header-ecomm {
+      display: none;
+    }
+
+    .header-ecomm-mob {
+      display: initial;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: white;
+      z-index: 10;
+      padding-bottom: 35px;
+      border-top: 1px solid #EBF0FF;
+
+    }
+
+    .header-ecomm-mob>nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      width: 100%;
+    }
+    .header-mob-item-wrap{
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .header-ecomm-mob-item{
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 15px 0 0 0;
+    }
+    .header-ecomm-mob-item>p{
+      color: rgba(144, 152, 177, 1);
+      margin-top: 5px;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .header-ecomm-mob-item>p{
+      font-size: 10px;
+    }
   }
 </style>
 
