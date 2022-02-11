@@ -1,22 +1,234 @@
 <header class="announcement-bar-ecomm">
-    {% for lang in localization.available_languages %}
-        {{lang.name}}{{lang.iso_code}}
-    {%endfor%}
+    <div class="announcement-bar-leftside">
+        {% if section.settings.show_lang %}
+        <div class="lang-select">
+            <p class="lang-select-main">
+                EN
+            </p>
+            {% include 'arrow-dropdown' %}
+            <div class="lang-select-menu">
+                <p class="lang-select-item">EN</p>
+                <p class="lang-select-item">RU</p>
+                <p class="lang-select-item">FR</p>
+            </div>
+        </div>
+        <script>
+            document.querySelector(".lang-select").addEventListener("click", function () {
+                document.querySelector(".lang-select-menu").classList.toggle("options-show");
+                document.querySelector(".lang-select>.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+            for (let e of document.querySelectorAll(".lang-select-item")) {
+                e.addEventListener("click", (() => document.querySelector(".lang-select-main").innerHTML = e.innerHTML))
+            };
+        </script>
+        {% endif %}
+        {% if section.settings.show_currency %}
+        <div class="currency-select">
+            <p class="currency-select-main">
+                USD
+            </p>
+            {% include 'arrow-dropdown' %}
+            <div class="currency-select-menu">
+                <p class="currency-select-item">USD</p>
+                <p class="currency-select-item">EUR</p>
+            </div>
+        </div>
+        <script>
+            document.querySelector(".currency-select").addEventListener("click", function () {
+                document.querySelector(".currency-select-menu").classList.toggle("options-show");
+                document.querySelector(".currency-select>.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+            for (let i of document.querySelectorAll(".currency-select-item")) {
+                i.addEventListener("click", (() => document.querySelector(".currency-select-main").innerHTML = i.innerHTML))
+            };
+        </script>
+        {% endif %}
+    </div>
+    <div class="announcement-bar-rightside">
+        <a href="#" class="announcement-bar-profile">
+            {% include 'icon-profile'%}
+            <p>My profile</p>
+        </a>
+        <a href="#" class="announcement-bar-cart">
+            <div class="announcement-bar-cart-icon">
+                {% include 'icon-cart-ecomm'%}
+            </div>
+            <p>Items</p>
+        </a>
+        <p class="announcement-bar-balance">$0.00</p>
+        <div class="announcement-bar-search">
+            {% include 'icon-search' %}
+        </div>
+    </div>
 </header>
 
 <style>
+    a {
+        text-decoration: none;
+        color: initial;
+    }
+
+    a:visited {
+        color: initial;
+    }
+
+    p {
+        margin: 0;
+    }
+
     .announcement-bar-ecomm {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
         justify-content: space-between;
-        padding: 26px 5%;
+        padding: 27px 5% 15px;
+    }
+
+    .announcement-bar-leftside {
+        font-size: 20px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .announcement-bar-rightside {
+        font-size: 20px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .lang-select {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+    }
+
+    .currency-select {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+    }
+
+    .lang-select-main {
+        margin-right: 5px;
+    }
+
+    .lang-select-menu {
+        visibility: hidden;
+        position: absolute;
+        top: 35px;
+        background-color: white;
+        border: 1px solid #41414175;
+    }
+
+    .lang-select-item {
+        padding: 0 10px;
+        border-bottom: 1px solid #41414175;
+        transition: color 0.2s, background-color 0.2s;
+    }
+
+    .lang-select-item:last-of-type {
+        border-bottom: none;
+    }
+
+    .currency-select-main {
+        margin-right: 5px;
+    }
+
+    .currency-select-menu {
+        visibility: hidden;
+        position: absolute;
+        top: 35px;
+        background-color: white;
+        border: 1px solid #41414175;
+    }
+
+    .currency-select-item {
+        padding: 0 10px;
+        border-bottom: 1px solid #41414175;
+        transition: color 0.2s, background-color 0.2s;
+    }
+
+    .currency-select-item:last-of-type {
+        border-bottom: none;
+    }
+
+    .announcement-bar-profile {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin-right: 35px;
+    }
+
+    .announcement-bar-profile>p {
+        margin-left: 7px;
+    }
+
+    .announcement-bar-cart {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin-right: 30px;
+    }
+
+    .announcement-bar-cart>p {
+        margin-left: 35px;
+    }
+
+    .announcement-bar-cart-icon {
+        height: 25px;
+    }
+
+    .announcement-bar-balance {
+        margin-right: 7px;
+        color: #262626;
+        opacity: 0.5;
+    }
+
+    .announcement-bar-search {
+        cursor: pointer;
+        position: relative;
+        bottom: 3px;
+        height: 22px;
+    }
+
+    .options-show {
+        visibility: visible;
+    }
+
+    .arrow-dropdown {
+        transition: all 0.2s;
+    }
+
+    .arrow-dropdown-up {
+        transform: rotate(180deg);
     }
 </style>
 
 {%- style -%}
-.ecomm-menu-item>a:hover{
-color: {{settings.main_color_1}};
+.lang-select-item:hover{
+background-color: {{settings.main_color_1}};
+color: white;
+}
+.currency-select-item:hover{
+background-color: {{settings.main_color_1}};
+color: white;
+}
+.announcement-bar-ecomm{
+background-color: {{section.settings.announcement_background}};
 }
 {%- endstyle -%}
 
@@ -24,7 +236,25 @@ color: {{settings.main_color_1}};
 {
 "name": "Announcement bar ecomm",
 "settings": [
-
+{
+"type": "color",
+"id": "announcement_background",
+"default" : "#FFF",
+"label" : "Color",
+"info": "Announcement bar background color"
+},
+{
+"type": "checkbox",
+"id": "show_lang",
+"label": "Show language switcher",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "show_currency",
+"label": "Show currency switcher",
+"default": true
+}
 ]
 }
 {% endschema %}
