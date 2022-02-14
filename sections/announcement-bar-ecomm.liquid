@@ -33,6 +33,7 @@
                 <p class="currency-select-item">EUR</p>
             </div>
         </div>
+        <div class='buckscc-currency-box'></div>
         <script>
             document.querySelector(".currency-select").addEventListener("click", function () {
                 document.querySelector(".currency-select-menu").classList.toggle("options-show");
@@ -61,9 +62,12 @@
           {% endif %}
         {% endif %}
       {% endif %}
-        <a href="#" class="announcement-bar-cart">
+        <a href="{{routes.cart_url}}" class="announcement-bar-cart">
             <div class="announcement-bar-cart-icon">
                 {% include 'icon-cart-ecomm'%}
+                <div class="cart_items_number">
+                    {{ cart.item_count }}
+                </div>
             </div>
             <p>Items</p>
         </a>
@@ -201,6 +205,7 @@
     }
 
     .announcement-bar-cart-icon {
+        position: relative;
         height: 25px;
     }
 
@@ -227,6 +232,23 @@
 
     .arrow-dropdown-up {
         transform: rotate(180deg);
+    }
+
+    .cart_items_number{
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -12px;
+        left: 12px;
+        font-size: 10px;
+        height: 26px;
+        width: 26px;
+        border: 3px solid white;
+        color: white;
+        font-weight: 700;
+        border-radius: 50%;
+        background-color: #FB7181;
     }
 
     @media screen and (max-width: 990px) {
