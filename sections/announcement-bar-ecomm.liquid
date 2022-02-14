@@ -26,7 +26,7 @@
         {% form 'currency' %}
         <div class="currency-select">
             <p class="currency-select-main">
-                {{cart.currency.iso_code}}
+                {{shop.enabled_currencies.first.iso_code}}
             </p>
             {% include 'arrow-dropdown' %}
             <div class="currency-select-menu">
@@ -38,11 +38,11 @@
         </div>
 
         <script>
-            for (let element of document.querySelectorAll('.currency-select-item')) {
-                element.addEventListener('click', function (event) {
-                    event.target.form.submit();
-                });
-            };
+            // for (let element of document.querySelectorAll('.currency-select-item')) {
+            //     element.addEventListener('click', function (event) {
+            //         event.target.form.submit();
+            //     });
+            // };
             document.querySelector(".currency-select").addEventListener("click", function () {
                 document.querySelector(".currency-select-menu").classList.toggle("options-show");
                 document.querySelector(".currency-select>.arrow-dropdown").classList.toggle("arrow-dropdown-up");
@@ -79,7 +79,7 @@
             </div>
             <p>Items</p>
         </a>
-        <p class="announcement-bar-balance">$0.00</p>
+        <p class="announcement-bar-balance">{{0 | money}}</p>
         <div class="announcement-bar-search">
             {% include 'icon-search' %}
         </div>
