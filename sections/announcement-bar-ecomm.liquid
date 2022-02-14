@@ -23,18 +23,26 @@
         </script>
         {% endif %}
         {% if section.settings.show_currency %}
+        {% form 'currency' %}
         <div class="currency-select">
             <p class="currency-select-main">
-                USD
+                {{cart.currency.iso_code}}
             </p>
             {% include 'arrow-dropdown' %}
             <div class="currency-select-menu">
-                <p class="currency-select-item">USD</p>
-                <p class="currency-select-item">EUR</p>
+                {% for currency in shop.enabled_currencies %}
+                <p class="currency-select-item">{{currency.iso_code}}</p>
+                {% endfor %}
             </div>
+            {% endform %}
         </div>
 
         <script>
+            for (let element of document.querySelectorAll('.currency-select-item')) {
+                element.addEventListener('click', function (event) {
+                    event.target.form.submit();
+                });
+            };
             document.querySelector(".currency-select").addEventListener("click", function () {
                 document.querySelector(".currency-select-menu").classList.toggle("options-show");
                 document.querySelector(".currency-select>.arrow-dropdown").classList.toggle("arrow-dropdown-up");
@@ -49,19 +57,19 @@
 
         {% if shop.customer_accounts_enabled %}
         {% if customer %}
-          <a href="{{ routes.account_url }}" class="announcement-bar-profile">
+        <a href="{{ routes.account_url }}" class="announcement-bar-profile">
             {% include 'icon-profile'%}
             <p>My profile</p>
         </a>
         {% else %}
-          <a href="{{ routes.account_login_url }}">Login </a>
-      
-          {% if shop.customer_accounts_optional %}
-            <span>/</span>
-            <a href="{{ routes.account_register_url }}" class="announcement-bar-profile"> Register</a>
-          {% endif %}
+        <a href="{{ routes.account_login_url }}">Login </a>
+
+        {% if shop.customer_accounts_optional %}
+        <span>/</span>
+        <a href="{{ routes.account_register_url }}" class="announcement-bar-profile"> Register</a>
         {% endif %}
-      {% endif %}
+        {% endif %}
+        {% endif %}
         <a href="{{routes.cart_url}}" class="announcement-bar-cart">
             <div class="announcement-bar-cart-icon">
                 {% include 'icon-cart-ecomm'%}
@@ -234,7 +242,7 @@
         transform: rotate(180deg);
     }
 
-    .cart_items_number{
+    .cart_items_number {
         position: absolute;
         display: flex;
         align-items: center;
@@ -252,10 +260,10 @@
     }
 
     @media screen and (max-width: 990px) {
-    .announcement-bar-ecomm {
-      display: none;
+        .announcement-bar-ecomm {
+            display: none;
+        }
     }
-  }
 </style>
 
 {%- style -%}
