@@ -45,10 +45,22 @@
         {% endif %}
     </div>
     <div class="announcement-bar-rightside">
-        <a href="#" class="announcement-bar-profile">
+
+        {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+          <a href="{{ routes.account_url }}" class="announcement-bar-profile">
             {% include 'icon-profile'%}
             <p>My profile</p>
         </a>
+        {% else %}
+          <a href="{{ routes.account_login_url }}">Login </a>
+      
+          {% if shop.customer_accounts_optional %}
+            <span>/</span>
+            <a href="{{ routes.account_register_url }}" class="announcement-bar-profile"> Register</a>
+          {% endif %}
+        {% endif %}
+      {% endif %}
         <a href="#" class="announcement-bar-cart">
             <div class="announcement-bar-cart-icon">
                 {% include 'icon-cart-ecomm'%}
