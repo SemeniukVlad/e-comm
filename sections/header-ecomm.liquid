@@ -6,9 +6,16 @@
     <nav id="ecomm-header-menu">
       <ul id="ecomm-menu">
         {% for link in linklists.main-menu.links %}
+        {%- if page_title == link.title -%}
+        <li class="ecomm-menu-item active">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+        {%- else -%}
         <li class="ecomm-menu-item">
           <a href="{{ link.url }}">{{ link.title }}</a>
         </li>
+        {%- endif -%}
+
         {% endfor %}
       </ul>
     </nav>
@@ -178,6 +185,9 @@
 
 {%- style -%}
 .ecomm-menu-item>a:hover{
+color: {{settings.main_color_1}};
+}
+.active{
 color: {{settings.main_color_1}};
 }
 {%- endstyle -%}
