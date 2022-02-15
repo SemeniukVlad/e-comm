@@ -6,7 +6,7 @@
     <nav id="ecomm-header-menu">
       <ul id="ecomm-menu">
         {% for link in linklists.main-menu.links %}
-        {%- if page_title == link.title -%}
+        {%- if link.active -%}
         <li class="ecomm-menu-item active">
           <a href="{{ link.url }}">{{ link.title }}</a>
         </li>
@@ -39,11 +39,14 @@
         </a>
       </div>
       <div class="header-mob-item-wrap">
-        <a href="#" class="header-ecomm-mob-item">
+        <a href="#" class="header-ecomm-mob-item mob-cart">
           {% include "icon-mob-cart"%}
           <p>
             Cart
           </p>
+          <div class="cart_items_number">
+            {{ cart.item_count }}
+          </div>
         </a>
       </div>
       <div class="header-mob-item-wrap">
@@ -55,7 +58,7 @@
         </a>
       </div>
       <div class="header-mob-item-wrap">
-        <a href="#" class="header-ecomm-mob-item">
+        <a href="#" {%-if link.active- %}class="header-ecomm-mob-item"{%- else -%}{%- endif -%}>
           {% include "icon-mob-account"%}
           <p>
             Account
@@ -157,13 +160,15 @@
       grid-template-columns: repeat(5, minmax(0, 1fr));
       width: 100%;
     }
-    .header-mob-item-wrap{
+
+    .header-mob-item-wrap {
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
       justify-content: center;
     }
-    .header-ecomm-mob-item{
+
+    .header-ecomm-mob-item {
       display: flex;
       flex-flow: column nowrap;
       align-items: center;
@@ -171,13 +176,35 @@
       width: 100%;
       padding: 15px 0 0 0;
     }
-    .header-ecomm-mob-item>p{
+
+    .header-ecomm-mob-item>p {
       color: rgba(144, 152, 177, 1);
       margin-top: 5px;
     }
+
+    .mob-cart{
+      position: relative;
+    }
+    .cart_items_number {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 3px;
+        left: 50%;
+        font-size: 10px;
+        height: 26px;
+        width: 26px;
+        border: 3px solid white;
+        color: white;
+        font-weight: 700;
+        border-radius: 50%;
+        background-color: #FB7181;
+    }
   }
+
   @media screen and (max-width: 750px) {
-    .header-ecomm-mob-item>p{
+    .header-ecomm-mob-item>p {
       font-size: 10px;
     }
   }
@@ -187,7 +214,11 @@
 .ecomm-menu-item>a:hover{
 color: {{settings.main_color_1}};
 }
-.active{
+.active>a{
+color: {{settings.main_color_1}};
+}
+
+.active>a:visited {
 color: {{settings.main_color_1}};
 }
 {%- endstyle -%}
