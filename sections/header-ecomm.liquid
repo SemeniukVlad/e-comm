@@ -22,24 +22,24 @@
   </div>
   <div class="header-ecomm-mob">
     <nav>
-      <div class="header-mob-item-wrap">
-        <a href="#" class="header-ecomm-mob-item">
+      <div class="{%- if canonical_url == "https://e-comm-training.myshopify.com/" -%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif -%}">
+        <a href="/"  class="header-ecomm-mob-item">
           {% include "icon-mob-home"%}
           <p>
             Home
           </p>
         </a>
       </div>
-      <div class="header-mob-item-wrap">
-        <a href="#" class="header-ecomm-mob-item">
+      <div class="{%- if canonical_url == "https://e-comm-training.myshopify.com/#" -%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif -%}">
+        <a href="#"  class="header-ecomm-mob-item">
           {% include "icon-mob-explore"%}
           <p>
             Explore
           </p>
         </a>
       </div>
-      <div class="header-mob-item-wrap">
-        <a href="#" class="header-ecomm-mob-item mob-cart">
+      <div class="{%- if canonical_url == "https://e-comm-training.myshopify.com{{routes.cart_url}}" -%}header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif -%}">
+        <a href="{{routes.cart_url}}" class="header-ecomm-mob-item mob-cart">
           {% include "icon-mob-cart"%}
           <p>
             Cart
@@ -49,16 +49,16 @@
           </div>
         </a>
       </div>
-      <div class="header-mob-item-wrap">
-        <a href="#" class="header-ecomm-mob-item">
+      <div class="{%- if canonical_url == "https://e-comm-training.myshopify.com/#" -%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif -%}">
+        <a href="#"  class="header-ecomm-mob-item">
           {% include "icon-mob-offer"%}
           <p>
             Offer
           </p>
         </a>
       </div>
-      <div class="header-mob-item-wrap">
-        <a href="#" {%-if link.active- %}class="header-ecomm-mob-item"{%- else -%}{%- endif -%}>
+      <div class="{%- if canonical_url == routes.account_url -%} header-mob-item-wrap active{%- elsif canonical_url == routes.account_login_url -%} header-mob-item-wrap active{%- elsif canonical_url == routes.account_register_url-%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif -%}">  
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{%- endif -%}" class="header-ecomm-mob-item">
           {% include "icon-mob-account"%}
           <p>
             Account
