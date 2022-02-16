@@ -23,33 +23,50 @@
         </script>
         {% endif %}
         {% if section.settings.show_currency %}
-        {% form 'currency' %}
-        <div class="currency-select">
-            <p class="currency-select-main">
+        <!-- {% form 'currency' %}
+        <form class="currency-select">
+            <label class="currency-select-main">
                 {{shop.enabled_currencies.first.iso_code}}
-            </p>
+            </label>
             {% include 'arrow-dropdown' %}
             <div class="currency-select-menu">
                 {% for currency in shop.enabled_currencies %}
-                <p class="currency-select-item">{{currency.iso_code}}</p>
+                <label class="currency-select-item">{{currency.iso_code}}</label>
                 {% endfor %}
             </div>
+        </form>
+        {% endform %} -->
+        <div class="currency-switcher">
+            {% form 'currency' %}
+            <select name="currency" class="currency-select">
+                {% for currency in shop.enabled_currencies %}
+                {% if currency == cart.currency %}
+                <option selected="true"  class="currency-select-item">{{currency.iso_code}}</option>
+                {% else %}
+                <option  class="currency-select-item">{{currency.iso_code}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            {% include 'arrow-dropdown'%}
             {% endform %}
         </div>
-
         <script>
-            // for (let element of document.querySelectorAll('.currency-select-item')) {
-            //     element.addEventListener('click', function (event) {
-            //         event.target.form.submit();
-            //     });
-            // };
-            document.querySelector(".currency-select").addEventListener("click", function () {
-                document.querySelector(".currency-select-menu").classList.toggle("options-show");
-                document.querySelector(".currency-select>.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            document.querySelector(".currency-select").addEventListener('focusin', function () {
+                document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
             });
-            for (let i of document.querySelectorAll(".currency-select-item")) {
-                i.addEventListener("click", (() => document.querySelector(".currency-select-main").innerHTML = i.innerHTML))
-            };
+            document.querySelector(".currency-select").addEventListener('focusout', function () {
+                document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+            document.querySelectorAll('.shopify-currency-form select').forEach(function (element) {
+                element.addEventListener('change', function (event) {
+                    event.target.form.submit();
+                    document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+                });
+            });
+            document.querySelector(".shopify-currency-form select option").addEventListener('click', function () {
+                document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+
         </script>
         {% endif %}
     </div>
@@ -81,12 +98,18 @@
         </a>
         <p class="announcement-bar-balance">{{0 | money}}</p>
         <div class="announcement-bar-search">
-            <a href="{{routes.search_url}}">{% include 'icon-search' %}</a>
-            <!-- <form action="{{ routes.search_url }}">
-                <input type="text" placeholder="Search" name="search-header" value="{{ search.terms | escape }}">
-                <input type="submit" value="Search">
-            </form> -->
+            <div class="search-icon-header">{% include 'icon-search' %}</div>
+            <form action="{{ routes.search_url }}" class="search-form-popup search-form-hidden">
+                <input class="search-form-item" type="text" placeholder="Search" name="q"
+                    value="{{ search.terms | escape }}">
+                <input class="search-form-item search-form-ok" type="submit" value="Confirm">
+            </form>
         </div>
+        <script defer>
+            document.querySelector(".search-icon-header").addEventListener("click", function () {
+                document.querySelector(".search-form-popup").classList.toggle("search-form-hidden");
+            });
+        </script>
     </div>
 </header>
 
@@ -138,14 +161,27 @@
         margin: 0 10px;
     }
 
-    .currency-select {
+    .currency-switcher{
         position: relative;
-        cursor: pointer;
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
-        justify-content: center;
-        margin: 0 10px;
+        justify-content: center
+    }
+    .currency-select-item {
+        background-color: white;
+    }
+    .currency-select {
+        font-size: 20px;
+        font-family: var(--font-body-family) ;
+        color: rgba(var(--color-foreground), 0.75);
+        outline: none;
+        box-shadow: none;
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+        padding: 3px;
     }
 
     .lang-select-main {
@@ -167,28 +203,6 @@
     }
 
     .lang-select-item:last-of-type {
-        border-bottom: none;
-    }
-
-    .currency-select-main {
-        margin-right: 5px;
-    }
-
-    .currency-select-menu {
-        visibility: hidden;
-        position: absolute;
-        top: 35px;
-        background-color: white;
-        border: 1px solid #41414175;
-    }
-
-    .currency-select-item {
-        padding: 0 10px;
-        border-bottom: 1px solid #41414175;
-        transition: color 0.2s, background-color 0.2s;
-    }
-
-    .currency-select-item:last-of-type {
         border-bottom: none;
     }
 
@@ -228,7 +242,6 @@
     }
 
     .announcement-bar-search {
-        cursor: pointer;
         position: relative;
         bottom: 3px;
         height: 22px;
@@ -240,6 +253,11 @@
 
     .arrow-dropdown {
         transition: all 0.2s;
+    }
+    .currency-switcher .arrow-dropdown {
+        position: absolute;
+        right: -10px;
+        top: 43%;
     }
 
     .arrow-dropdown-up {
@@ -263,6 +281,38 @@
         background-color: #FB7181;
     }
 
+    .search-icon-header {
+        cursor: pointer;
+    }
+
+    .search-form-popup {
+        position: absolute;
+        right: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        padding: 20px;
+        border: 1px solid black;
+        transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .search-form-item {
+        font-family: var(--font-body-family);
+        margin: 0 5px;
+        outline: none;
+        box-shadow: none;
+        border-radius: 0;
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    .search-form-hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+
     @media screen and (max-width: 990px) {
         .announcement-bar-ecomm {
             display: none;
@@ -275,10 +325,6 @@
 background-color: {{settings.main_color_1}};
 color: white;
 }
-.currency-select-item:hover{
-background-color: {{settings.main_color_1}};
-color: white;
-}
 .announcement-bar-ecomm{
 background-color: {{section.settings.announcement_background}};
 {%- if section.settings.show_divider -%}
@@ -286,6 +332,14 @@ border-bottom: 2px solid #FAFAFB;
 {%- endif -%}
 }
 
+.search-form-ok{
+cursor: pointer;
+transition: background-color 0.2s, color 0.2s;
+}
+.search-form-ok:hover{
+background-color: {{settings.main_color_1}};
+color: white;
+}
 {%- endstyle -%}
 
 {% schema %}
