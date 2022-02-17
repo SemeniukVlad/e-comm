@@ -9,21 +9,77 @@
         {%- if link.active -%}
         <li class="ecomm-menu-item active">
           <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.links != blank %}
+          <ul class="ecomm-menu-child">
+            <svg class="ecomm-menu-arrow" width="18" height="11" viewBox="0 0 18 11" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.98768 0.0905762L17.1077 10.074H0.867676L8.98768 0.0905762Z" fill="#F1F3F4" />
+          </svg>
+            {% for child_link in link.links %}
+            <li class="ecomm-child-item">
+              {{ child_link.title }}
+              {% if child_link.links != blank %}
+              <ul class="ecomm-menu-grandchild">
+                {% for grandchild_link in child_link.links %}
+                <li class="ecomm-grandchild-item"><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </li>
         {%- else -%}
         <li class="ecomm-menu-item">
           <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.links != blank %}
+          <ul class="ecomm-menu-child">
+            <svg class="ecomm-menu-arrow" width="18" height="11" viewBox="0 0 18 11" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.98768 0.0905762L17.1077 10.074H0.867676L8.98768 0.0905762Z" fill="#F1F3F4" />
+          </svg>
+            {% for child_link in link.links %}
+            <li class="ecomm-child-item">
+              {{ child_link.title }}
+              {% if child_link.links != blank %}
+              <ul class="ecomm-menu-grandchild">
+                {% for grandchild_link in child_link.links %}
+                <li class="ecomm-grandchild-item"><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
         </li>
         {%- endif -%}
 
+        {%- style -%}
+
+        a[href = "{{link.url}}"]:hover ~ .ecomm-menu-child{
+          opacity: 1;
+          visibility: visible;
+        }
+
+        a[href = "{{link.url}}"] ~ .ecomm-menu-child:hover{
+          opacity: 1;
+          visibility: visible;
+        }
+
+        {%- endstyle -%}
         {% endfor %}
+
       </ul>
     </nav>
   </div>
   <div class="header-ecomm-mob">
     <nav>
-      <div class="{%- if template contains "index" -%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif
-        -%}">
+      <div class="{%- if template contains " index" -%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%-
+        endif -%}">
         <a href="/" class="header-ecomm-mob-item">
           {% include "icon-mob-home"%}
           <p>
@@ -40,8 +96,8 @@
           </p>
         </a>
       </div>
-      <div class="{%- if template contains "cart" -%}header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%- endif
-        -%}">
+      <div class="{%- if template contains " cart" -%}header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%-
+        endif -%}">
         <a href="{{routes.cart_url}}" class="header-ecomm-mob-item mob-cart">
           {% include "icon-mob-cart"%}
           <p>
@@ -61,7 +117,7 @@
           </p>
         </a>
       </div>
-      <div class="{%- if template contains "customers" -%} header-mob-item-wrap active {%- else
+      <div class="{%- if template contains " customers" -%} header-mob-item-wrap active {%- else
         -%}header-mob-item-wrap{%- endif -%}">
         <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{%- endif -%}"
           class="header-ecomm-mob-item">
@@ -99,6 +155,7 @@
   }
 
   .ecomm-menu-item {
+    position: relative;
     margin: 0 50px;
   }
 
@@ -124,6 +181,53 @@
 
   .header-ecomm-mob {
     display: none;
+  }
+
+  .ecomm-menu-arrow {
+    position: absolute;
+    right: 20px;
+    top: -11px;
+  }
+
+  .ecomm-menu-child {
+    max-height: 360px;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: fit-content;
+    padding: 40px 30px 30px 90px;
+    background-color: white;
+    border-top: 2px solid #F1F3F4;
+    z-index: 999;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    list-style-type: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .ecomm-child-item {
+    margin-right: 60px;
+    white-space: nowrap;
+    font-size: 22px;
+    font-weight: 500;
+    color: #C1C8CE;
+  }
+
+  .ecomm-menu-grandchild {
+    padding: 0;
+    display: flex;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    list-style-type: none;
+  }
+
+  .ecomm-grandchild-item {
+    margin: 12px 0;
   }
 
   @media screen and (max-width: 1400px) {
@@ -246,16 +350,16 @@ color: {{settings.main_color_1}};
 }
 }
 .mob-icon>path {
-  stroke: #9098B1;
+stroke: #9098B1;
 }
 .mob-icon>.cart-wheel, .mob-icon>.account-icon-mob{
-  fill: #9098B1;
+fill: #9098B1;
 }
 .active .mob-icon>path{
-  stroke: {{settings.main_color_1}};
+stroke: {{settings.main_color_1}};
 }
 .active .mob-icon>.cart-wheel,.active .mob-icon>.account-icon-mob{
-  fill: {{settings.main_color_1}};
+fill: {{settings.main_color_1}};
 }
 
 
