@@ -190,10 +190,9 @@
   }
 
   .ecomm-menu-child {
-    max-height: 360px;
     position: absolute;
     top: 60px;
-    right: 0;
+    right: 0vw;
     width: fit-content;
     padding: 40px 30px 30px 90px;
     background-color: white;
@@ -216,29 +215,32 @@
     font-weight: 500;
     color: #C1C8CE;
   }
+  .ecomm-grandchild-item>a{
+    transition: color 0.2s;
+  }
 
   .ecomm-grandchild-item {
-    margin: 15px 0;
     white-space: nowrap;
     font-size: 16px;
     font-weight: 400;
     color: #262626;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
   }
+
 
   .ecomm-menu-grandchild {
+    margin-top: 30px;
     padding: 0;
-    display: flex;
-    flex-flow: column wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-    list-style-type: none;
-    column-width: 100px;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(auto-fit, minmax(0,40px));
     column-gap: 45px;
-    max-height: 245px;
-  }
-
-  .ecomm-grandchild-item {
-    margin: 12px 0;
+    row-gap: 20px;
+    list-style-type: none;
+    height: 245px;
+    width: fit-content;
   }
 
   @media screen and (max-width: 1400px) {
@@ -372,7 +374,9 @@ stroke: {{settings.main_color_1}};
 .active .mob-icon>.cart-wheel,.active .mob-icon>.account-icon-mob{
 fill: {{settings.main_color_1}};
 }
-
+.ecomm-grandchild-item>a:hover {
+  color: {{settings.main_color_1}};
+}
 
 {%- endstyle -%}
 
