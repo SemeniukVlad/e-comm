@@ -87,14 +87,13 @@
           </p>
         </a>
       </div>
-      <div class="{%- if canonical_url == "https://e-comm-training.myshopify.com/#" -%} header-mob-item-wrap active{%-
-        else -%}header-mob-item-wrap{%- endif -%}">
-        <a href="#" class="header-ecomm-mob-item">
+      <div class="header-mob-item-wrap explore-wrap">
+        <div class="header-ecomm-mob-item ecomm-mob-explore">
           {% include "icon-mob-explore"%}
           <p>
             Explore
           </p>
-        </a>
+        </div>
       </div>
       <div class="{%- if template contains "cart" -%}header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%-
         endif -%}">
@@ -129,9 +128,67 @@
       </div>
     </nav>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <nav class="ecomm-explore explore-hide">
+    <ul class="ecomm-explore-menu">
+      {% for link in linklists.explore.links %}
+      <li class="ecomm-explore-item">
+        {{ link.title }}
+        {% if link.links != blank %}
+        <ul class="ecomm-explore-child">
+          {% for child_link in link.links %}
+          <li class="explore-child-item">
+            <a href="{{ child_link.url }}" class="explore-child-link">
+              <p>{{ child_link.title }}</p>
+              {{collections[child_link.handle].description}}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </li>
+      {% endfor %}
+    </ul>
+  </nav>
+
+  <script defer>
+    document.querySelector(".ecomm-mob-explore").addEventListener("click", function () {
+      document.querySelector("body").classList.toggle("body-no-scroll");
+      document.querySelector(".explore-wrap").classList.toggle("active");
+      document.querySelector(".ecomm-explore").classList.toggle("explore-hide");
+    });
+  </script>
 </header>
 
 <style>
+  .body-no-scroll{
+    overflow-y: hidden;
+  }
+  
   .header-ecomm {
     max-width: 1920px;
     display: flex;
@@ -245,6 +302,10 @@
     width: fit-content;
   }
 
+  .ecomm-explore{
+    display: none;
+  }
+
   @media screen and (max-width: 1400px) {
     .ecomm-menu-item {
       margin: 0 25px;
@@ -354,9 +415,119 @@
     }
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .ecomm-explore{
+    padding-bottom: 97px;
+    position: fixed;
+    display: initial;
+    top: 0;
+    z-index: 9;
+    background-color: white;
+    height: 100vh;
+    width: 100vw;
+    transition: top 0.3s;
+    overflow-y: auto;
+
+  }
+
+  .ecomm-explore-menu {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 15px;
+    margin: 0;
+  }
+
+  .ecomm-explore-item {
+    font-size: 18px;
+    font-weight: 700;
+    color: #223263;
+    width: 100%;
+  }
+
+  .ecomm-explore-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 100px));
+    column-gap: 20px;
+    row-gap: 15px;
+    list-style-type: none;
+    padding: 0;
+    margin: 12px auto;
+  }
+
+  .explore-child-link {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(144, 152, 177, 1);
+    padding: 0;
+    margin: 0;
+  }
+
+  .explore-child-link>p {
+    margin-top: 10px;
+  }
+
+  .explore-child-link:visited {
+    color: rgba(144, 152, 177, 1);
+  }
+
+  .explore-hide {
+    top: 100vh;
+  }
+
   @media screen and (max-width: 750px) {
     .header-ecomm-mob-item>p {
       font-size: 10px;
+    }
+
+    .ecomm-explore-item {
+      font-size: 14px;
+    }
+
+    .ecomm-explore-child {
+      grid-template-columns: repeat(auto-fit, minmax(0, 70px));
+      column-gap: 20px;
+      row-gap: 15px;
+      margin: 12px auto;
+    }
+
+    .explore-child-link {
+      font-size: 10px;
+      padding: 0;
+      margin: 0;
     }
   }
 </style>
@@ -386,6 +557,12 @@ color: {{settings.main_color_1}};
 }
 
 .active>a>p:visited {
+color: {{settings.main_color_1}};
+}
+.active>div>p{
+color: {{settings.main_color_1}};
+}
+.active>div>svg{
 color: {{settings.main_color_1}};
 }
 }
