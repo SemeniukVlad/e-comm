@@ -1,22 +1,361 @@
 <header class="announcement-bar-ecomm">
-    {% for lang in localization.available_languages %}
-        {{lang.name}}{{lang.iso_code}}
-    {%endfor%}
+    <div class="announcement-bar-leftside">
+        {% if section.settings.show_lang %}
+        <div class="lang-select">
+            <p class="lang-select-main">
+                EN
+            </p>
+            {% include 'arrow-dropdown' %}
+            <div class="lang-select-menu">
+                <p class="lang-select-item">EN</p>
+                <p class="lang-select-item">RU</p>
+                <p class="lang-select-item">FR</p>
+            </div>
+        </div>
+        <script>
+            document.querySelector(".lang-select").addEventListener("click", function () {
+                document.querySelector(".lang-select-menu").classList.toggle("options-show");
+                document.querySelector(".lang-select>.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+            for (let e of document.querySelectorAll(".lang-select-item")) {
+                e.addEventListener("click", (() => document.querySelector(".lang-select-main").innerHTML = e.innerHTML))
+            };
+        </script>
+        {% endif %}
+        {% if section.settings.show_currency %}
+        <!-- {% form 'currency' %}
+        <form class="currency-select">
+            <label class="currency-select-main">
+                {{shop.enabled_currencies.first.iso_code}}
+            </label>
+            {% include 'arrow-dropdown' %}
+            <div class="currency-select-menu">
+                {% for currency in shop.enabled_currencies %}
+                <label class="currency-select-item">{{currency.iso_code}}</label>
+                {% endfor %}
+            </div>
+        </form>
+        {% endform %} -->
+        <div class="currency-switcher">
+            {% form 'currency' %}
+            <select name="currency" class="currency-select">
+                {% for currency in shop.enabled_currencies %}
+                {% if currency == cart.currency %}
+                <option selected="true"  class="currency-select-item">{{currency.iso_code}}</option>
+                {% else %}
+                <option  class="currency-select-item">{{currency.iso_code}}</option>
+                {% endif %}
+                {% endfor %}
+            </select>
+            {% include 'arrow-dropdown'%}
+            {% endform %}
+        </div>
+        <script>
+            document.querySelector(".currency-select").addEventListener('focusin', function () {
+                document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+            document.querySelector(".currency-select").addEventListener('focusout', function () {
+                document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+            document.querySelectorAll('.shopify-currency-form select').forEach(function (element) {
+                element.addEventListener('change', function (event) {
+                    event.target.form.submit();
+                    document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+                });
+            });
+            document.querySelector(".shopify-currency-form select option").addEventListener('click', function () {
+                document.querySelector(".currency-select+.arrow-dropdown").classList.toggle("arrow-dropdown-up");
+            });
+
+        </script>
+        {% endif %}
+    </div>
+    <div class="announcement-bar-rightside">
+
+        {% if shop.customer_accounts_enabled %}
+        {% if customer %}
+        <a href="{{ routes.account_url }}" class="announcement-bar-profile">
+            {% include 'icon-profile'%}
+            <p>My profile</p>
+        </a>
+        {% else %}
+        <a href="{{ routes.account_login_url }}">Login </a>
+
+        {% if shop.customer_accounts_optional %}
+        <span>/</span>
+        <a href="{{ routes.account_register_url }}" class="announcement-bar-profile"> Register</a>
+        {% endif %}
+        {% endif %}
+        {% endif %}
+        <a href="{{routes.cart_url}}" class="announcement-bar-cart">
+            <div class="announcement-bar-cart-icon">
+                {% include 'icon-cart-ecomm'%}
+                <div class="cart_items_number">
+                    {{ cart.item_count }}
+                </div>
+            </div>
+            <p>Items</p>
+        </a>
+        <p class="announcement-bar-balance">{{0 | money}}</p>
+        <div class="announcement-bar-search">
+            <div class="search-icon-header">{% include 'icon-search' %}</div>
+            <form action="{{ routes.search_url }}" class="search-form-popup search-form-hidden">
+                <input class="search-form-item" type="text" placeholder="Search" name="q"
+                    value="{{ search.terms | escape }}">
+                <input class="search-form-item search-form-ok" type="submit" value="Confirm">
+            </form>
+        </div>
+        <script defer>
+            document.querySelector(".search-icon-header").addEventListener("click", function () {
+                document.querySelector(".search-form-popup").classList.toggle("search-form-hidden");
+            });
+        </script>
+    </div>
 </header>
 
 <style>
+    a {
+        text-decoration: none;
+        color: initial;
+    }
+
+    a:visited {
+        color: initial;
+    }
+
+    p {
+        margin: 0;
+    }
+
     .announcement-bar-ecomm {
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
         justify-content: space-between;
-        padding: 26px 5%;
+        padding: 27px 5% 15px;
+    }
+
+    .announcement-bar-leftside {
+        font-size: 20px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .announcement-bar-rightside {
+        font-size: 20px;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .lang-select {
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin: 0 10px;
+    }
+
+    .currency-switcher{
+        position: relative;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center
+    }
+    .currency-select-item {
+        background-color: white;
+    }
+    .currency-select {
+        font-size: 20px;
+        font-family: var(--font-body-family) ;
+        color: rgba(var(--color-foreground), 0.75);
+        outline: none;
+        box-shadow: none;
+        border: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        cursor: pointer;
+        padding: 3px;
+    }
+
+    .lang-select-main {
+        margin-right: 5px;
+    }
+
+    .lang-select-menu {
+        visibility: hidden;
+        position: absolute;
+        top: 35px;
+        background-color: white;
+        border: 1px solid #41414175;
+    }
+
+    .lang-select-item {
+        padding: 0 10px;
+        border-bottom: 1px solid #41414175;
+        transition: color 0.2s, background-color 0.2s;
+    }
+
+    .lang-select-item:last-of-type {
+        border-bottom: none;
+    }
+
+    .announcement-bar-profile {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin-right: 35px;
+    }
+
+    .announcement-bar-profile>p {
+        margin-left: 7px;
+    }
+
+    .announcement-bar-cart {
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        margin-right: 30px;
+    }
+
+    .announcement-bar-cart>p {
+        margin-left: 35px;
+    }
+
+    .announcement-bar-cart-icon {
+        position: relative;
+        height: 25px;
+    }
+
+    .announcement-bar-balance {
+        margin-right: 7px;
+        color: #262626;
+        opacity: 0.5;
+    }
+
+    .announcement-bar-search {
+        position: relative;
+        bottom: 3px;
+        height: 22px;
+    }
+
+    .options-show {
+        visibility: visible;
+    }
+
+    .arrow-dropdown {
+        transition: all 0.2s;
+    }
+    .currency-switcher .arrow-dropdown {
+        position: absolute;
+        right: -10px;
+        top: 43%;
+    }
+
+    .arrow-dropdown-up {
+        transform: rotate(180deg);
+    }
+
+    .cart_items_number {
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: -12px;
+        left: 12px;
+        font-size: 10px;
+        height: 26px;
+        width: 26px;
+        border: 3px solid white;
+        color: white;
+        font-weight: 700;
+        border-radius: 50%;
+        background-color: #FB7181;
+    }
+
+    .search-icon-header {
+        cursor: pointer;
+        transition: transform 0.2s;
+    }
+    .search-icon-header:hover{
+        transform: scale(1.3);
+    }
+
+    .icon-profile-ecomm{
+        transition: transform 0.2s;
+    }
+    .announcement-bar-profile:hover .icon-profile-ecomm{
+        transform: scale(1.3);
+    }
+
+    .search-form-popup {
+        position: absolute;
+        right: 0;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: center;
+        background-color: white;
+        padding: 20px;
+        border: 1px solid black;
+        transition: opacity 0.2s, visibility 0.2s;
+    }
+
+    .search-form-item {
+        font-family: var(--font-body-family);
+        margin: 0 5px;
+        outline: none;
+        box-shadow: none;
+        border-radius: 0;
+        border: 1px solid black;
+        padding: 5px;
+    }
+
+    .search-form-hidden {
+        opacity: 0;
+        visibility: hidden;
+    }
+    .icon-cart-ecomm{
+        transition: transform 0.2s;
+    }
+    .announcement-bar-cart:hover .icon-cart-ecomm{
+        transform: scale(1.3);
+    }
+
+    @media screen and (max-width: 990px) {
+        .announcement-bar-ecomm {
+            display: none;
+        }
     }
 </style>
 
 {%- style -%}
-.ecomm-menu-item>a:hover{
-color: {{settings.main_color_1}};
+.lang-select-item:hover{
+background-color: {{settings.main_color_1}};
+color: white;
+}
+.announcement-bar-ecomm{
+background-color: {{section.settings.announcement_background}};
+{%- if section.settings.show_divider -%}
+border-bottom: 2px solid #FAFAFB;
+{%- endif -%}
+}
+
+.search-form-ok{
+cursor: pointer;
+transition: background-color 0.2s, color 0.2s;
+}
+.search-form-ok:hover{
+background-color: {{settings.main_color_1}};
+color: white;
 }
 {%- endstyle -%}
 
@@ -24,7 +363,31 @@ color: {{settings.main_color_1}};
 {
 "name": "Announcement bar ecomm",
 "settings": [
-
+{
+"type": "color",
+"id": "announcement_background",
+"default" : "#FFF",
+"label" : "Color",
+"info": "Announcement bar background color"
+},
+{
+"type": "checkbox",
+"id": "show_lang",
+"label": "Show language switcher",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "show_currency",
+"label": "Show currency switcher",
+"default": true
+},
+{
+"type": "checkbox",
+"id": "show_divider",
+"label": "Show divider",
+"default": true
+}
 ]
 }
 {% endschema %}

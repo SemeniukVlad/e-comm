@@ -1,20 +1,196 @@
-<header class="header-ecomm">
-  <a href="/" class="ecomm-logo-wrap">
-    {% render 'ecomm-logo' %}
-  </a>
-  <nav id="ecomm-header-menu">
-    <ul id="ecomm-menu">
-      {% for link in linklists.main-menu.links %}
-      <li class="ecomm-menu-item">
-        <a href="{{ link.url }}">{{ link.title }}</a>
+<header class="header-ecomm-wrap">
+  <div class="header-ecomm">
+    <a href="/" class="ecomm-logo-wrap">
+      {% render 'ecomm-logo' %}
+    </a>
+    <nav id="ecomm-header-menu">
+      <ul id="ecomm-menu">
+        {% for link in linklists.main-menu.links %}
+        {%- if link.active -%}
+        <li class="ecomm-menu-item active">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.links != blank %}
+          <ul class="ecomm-menu-child">
+            <svg class="ecomm-menu-arrow" width="18" height="11" viewBox="0 0 18 11" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.98768 0.0905762L17.1077 10.074H0.867676L8.98768 0.0905762Z" fill="#F1F3F4" />
+            </svg>
+            {% for child_link in link.links %}
+            <li class="ecomm-child-item">
+              {{ child_link.title }}
+              {% if child_link.links != blank %}
+              <ul class="ecomm-menu-grandchild">
+                {% for grandchild_link in child_link.links %}
+                <li class="ecomm-grandchild-item"><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {%- else -%}
+        <li class="ecomm-menu-item">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {% if link.links != blank %}
+          <ul class="ecomm-menu-child">
+            <svg class="ecomm-menu-arrow" width="18" height="11" viewBox="0 0 18 11" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <path d="M8.98768 0.0905762L17.1077 10.074H0.867676L8.98768 0.0905762Z" fill="#F1F3F4" />
+            </svg>
+            {% for child_link in link.links %}
+            <li class="ecomm-child-item">
+              {{ child_link.title }}
+              {% if child_link.links != blank %}
+              <ul class="ecomm-menu-grandchild">
+                {% for grandchild_link in child_link.links %}
+                <li class="ecomm-grandchild-item"><a href="{{ grandchild_link.url }}">{{ grandchild_link.title }}</a>
+                </li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+        </li>
+        {%- endif -%}
+
+        {%- style -%}
+
+        a[href = "{{link.url}}"]:hover ~ .ecomm-menu-child{
+        opacity: 1;
+        visibility: visible;
+        }
+
+        a[href = "{{link.url}}"] ~ .ecomm-menu-child:hover{
+        opacity: 1;
+        visibility: visible;
+        }
+
+        {%- endstyle -%}
+        {% endfor %}
+
+      </ul>
+    </nav>
+  </div>
+  <div class="header-ecomm-mob">
+    <nav>
+      <div class="{%- if template contains "index" -%} header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%-
+        endif -%}">
+        <a href="/" class="header-ecomm-mob-item">
+          {% include "icon-mob-home"%}
+          <p>
+            Home
+          </p>
+        </a>
+      </div>
+      <div class="header-mob-item-wrap explore-wrap">
+        <div class="header-ecomm-mob-item ecomm-mob-explore">
+          {% include "icon-mob-explore"%}
+          <p>
+            Explore
+          </p>
+        </div>
+      </div>
+      <div class="{%- if template contains "cart" -%}header-mob-item-wrap active{%- else -%}header-mob-item-wrap{%-
+        endif -%}">
+        <a href="{{routes.cart_url}}" class="header-ecomm-mob-item mob-cart">
+          {% include "icon-mob-cart"%}
+          <p>
+            Cart
+          </p>
+          <div class="cart_items_number">
+            {{ cart.item_count }}
+          </div>
+        </a>
+      </div>
+      <div class="{%- if canonical_url == "https://e-comm-training.myshopify.com/#" -%} header-mob-item-wrap active{%-
+        else -%}header-mob-item-wrap{%- endif -%}">
+        <a href="#" class="header-ecomm-mob-item">
+          {% include "icon-mob-offer"%}
+          <p>
+            Offer
+          </p>
+        </a>
+      </div>
+      <div class="{%- if template contains "customers" -%} header-mob-item-wrap active {%- else
+        -%}header-mob-item-wrap{%- endif -%}">
+        <a href="{% if customer %}{{ routes.account_url }}{% else %}{{ routes.account_login_url }}{%- endif -%}"
+          class="header-ecomm-mob-item">
+          {% include "icon-mob-account"%}
+          <p>
+            Account
+          </p>
+        </a>
+      </div>
+    </nav>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <nav class="ecomm-explore explore-hide">
+    <ul class="ecomm-explore-menu">
+      {% for link in linklists.explore.links %}
+      <li class="ecomm-explore-item">
+        {{ link.title }}
+        {% if link.links != blank %}
+        <ul class="ecomm-explore-child">
+          {% for child_link in link.links %}
+          <li class="explore-child-item">
+            <a href="{{ child_link.url }}" class="explore-child-link">
+              <p>{{ child_link.title }}</p>
+              {{collections[child_link.handle].description}}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
       </li>
       {% endfor %}
     </ul>
   </nav>
+
+  <script defer>
+    document.querySelector(".ecomm-mob-explore").addEventListener("click", function () {
+      document.querySelector("body").classList.toggle("body-no-scroll");
+      document.querySelector(".explore-wrap").classList.toggle("active");
+      document.querySelector(".ecomm-explore").classList.toggle("explore-hide");
+    });
+  </script>
 </header>
 
 <style>
+  .body-no-scroll{
+    overflow-y: hidden;
+  }
+  
   .header-ecomm {
+    max-width: 1920px;
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
@@ -37,7 +213,16 @@
   }
 
   .ecomm-menu-item {
+    position: relative;
     margin: 0 50px;
+  }
+
+  .ecomm-menu-item:first-of-type {
+    margin: 0 50px 0 0;
+  }
+
+  .ecomm-menu-item:last-of-type {
+    margin: 0 0 0 50px;
   }
 
   .ecomm-menu-item>a {
@@ -51,12 +236,352 @@
   .ecomm-menu-item>a:visited {
     color: initial;
   }
+
+  .header-ecomm-mob {
+    display: none;
+  }
+
+  .ecomm-menu-arrow {
+    position: absolute;
+    right: 20px;
+    top: -11px;
+  }
+
+  .ecomm-menu-child {
+    position: absolute;
+    top: 60px;
+    right: 0vw;
+    width: fit-content;
+    padding: 40px 30px 30px 90px;
+    background-color: white;
+    border-top: 2px solid #F1F3F4;
+    z-index: 999;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    list-style-type: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+
+  .ecomm-child-item {
+    margin-right: 60px;
+    white-space: nowrap;
+    font-size: 22px;
+    font-weight: 500;
+    color: #C1C8CE;
+  }
+
+  .ecomm-grandchild-item>a {
+    transition: color 0.2s;
+  }
+
+  .ecomm-grandchild-item {
+    white-space: nowrap;
+    font-size: 16px;
+    font-weight: 400;
+    color: #262626;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+
+  .ecomm-menu-grandchild {
+    margin-top: 30px;
+    padding: 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(auto-fit, minmax(0, 40px));
+    column-gap: 45px;
+    row-gap: 20px;
+    list-style-type: none;
+    height: 245px;
+    width: fit-content;
+  }
+
+  .ecomm-explore{
+    display: none;
+  }
+
+  @media screen and (max-width: 1400px) {
+    .ecomm-menu-item {
+      margin: 0 25px;
+    }
+
+    .ecomm-menu-item:first-of-type {
+      margin: 0 25px 0 0;
+    }
+
+    .ecomm-menu-item:last-of-type {
+      margin: 0 0 0 25px;
+    }
+
+    .ecomm-menu-item>a {
+      font-size: 20px;
+    }
+
+    .ecomm-child-item {
+      margin-right: 30px;
+      font-size: 18px;
+    }
+
+    .ecomm-grandchild-item {
+      font-size: 12px;
+    }
+
+
+    .ecomm-menu-grandchild {
+      margin-top: 15px;
+      grid-template-rows: repeat(auto-fit, minmax(0, 40px));
+      column-gap: 25px;
+      row-gap: 10px;
+    }
+
+    .ecomm-menu-child {
+      right: -12vw;
+    }
+
+    .ecomm-menu-arrow {
+      right: calc(12vw + 20px);
+    }
+  }
+
+  @media screen and (max-width: 990px) {
+    .header-ecomm {
+      display: none;
+    }
+
+    .header-ecomm-mob {
+      display: initial;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: white;
+      z-index: 10;
+      padding-bottom: 35px;
+      border-top: 1px solid #EBF0FF;
+
+    }
+
+    .header-ecomm-mob>nav {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      width: 100%;
+    }
+
+    .header-mob-item-wrap {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header-ecomm-mob-item {
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 15px 0 0 0;
+    }
+
+    .header-ecomm-mob-item>p {
+      color: rgba(144, 152, 177, 1);
+      margin-top: 5px;
+    }
+
+    .mob-cart {
+      position: relative;
+    }
+
+    .cart_items_number {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 3px;
+      left: 50%;
+      font-size: 10px;
+      height: 26px;
+      width: 26px;
+      border: 3px solid white;
+      color: white;
+      font-weight: 700;
+      border-radius: 50%;
+      background-color: #FB7181;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  .ecomm-explore{
+    padding-bottom: 97px;
+    position: fixed;
+    display: initial;
+    top: 0;
+    z-index: 9;
+    background-color: white;
+    height: 100vh;
+    width: 100vw;
+    transition: top 0.3s;
+    overflow-y: auto;
+
+  }
+
+  .ecomm-explore-menu {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    list-style-type: none;
+    padding: 15px;
+    margin: 0;
+  }
+
+  .ecomm-explore-item {
+    font-size: 18px;
+    font-weight: 700;
+    color: #223263;
+    width: 100%;
+  }
+
+  .ecomm-explore-child {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(0, 100px));
+    column-gap: 20px;
+    row-gap: 15px;
+    list-style-type: none;
+    padding: 0;
+    margin: 12px auto;
+  }
+
+  .explore-child-link {
+    display: flex;
+    flex-flow: column-reverse nowrap;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    text-align: center;
+    font-size: 12px;
+    color: rgba(144, 152, 177, 1);
+    padding: 0;
+    margin: 0;
+  }
+
+  .explore-child-link>p {
+    margin-top: 10px;
+  }
+
+  .explore-child-link:visited {
+    color: rgba(144, 152, 177, 1);
+  }
+
+  .explore-hide {
+    top: 100vh;
+  }
+
+  @media screen and (max-width: 750px) {
+    .header-ecomm-mob-item>p {
+      font-size: 10px;
+    }
+
+    .ecomm-explore-item {
+      font-size: 14px;
+    }
+
+    .ecomm-explore-child {
+      grid-template-columns: repeat(auto-fit, minmax(0, 70px));
+      column-gap: 20px;
+      row-gap: 15px;
+      margin: 12px auto;
+    }
+
+    .explore-child-link {
+      font-size: 10px;
+      padding: 0;
+      margin: 0;
+    }
+  }
 </style>
 
 {%- style -%}
 .ecomm-menu-item>a:hover{
 color: {{settings.main_color_1}};
 }
+.active>a{
+color: {{settings.main_color_1}};
+}
+
+.active>a:visited {
+color: {{settings.main_color_1}};
+}
+
+@media screen and (max-width: 990px) {
+.active>a>p{
+color: {{settings.main_color_1}};
+}
+
+.active>a>p:visited {
+color: {{settings.main_color_1}};
+}
+.active>a>svg{
+color: {{settings.main_color_1}};
+}
+
+.active>a>p:visited {
+color: {{settings.main_color_1}};
+}
+.active>div>p{
+color: {{settings.main_color_1}};
+}
+.active>div>svg{
+color: {{settings.main_color_1}};
+}
+}
+.mob-icon>path {
+stroke: #9098B1;
+}
+.mob-icon>.cart-wheel, .mob-icon>.account-icon-mob{
+fill: #9098B1;
+}
+.active .mob-icon>path{
+stroke: {{settings.main_color_1}};
+}
+.active .mob-icon>.cart-wheel,.active .mob-icon>.account-icon-mob{
+fill: {{settings.main_color_1}};
+}
+.ecomm-grandchild-item>a:hover {
+color: {{settings.main_color_1}};
+}
+
 {%- endstyle -%}
 
 {% schema %}
