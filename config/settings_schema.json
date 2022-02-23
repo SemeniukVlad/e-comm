@@ -23,6 +23,34 @@
       },
       {
         "type": "color",
+        "id": "main_color_1",
+        "default": "#40BFFF",
+        "label": "main color 1",
+        "info": "main color 1"
+      },
+      {
+        "type": "color",
+        "id": "main_color_2",
+        "default": "#FF4858",
+        "label": "main color 2",
+        "info": "main color 2"
+      },
+      {
+        "type": "color",
+        "id": "main_color_3",
+        "default": "#BCDDFE",
+        "label": "main color 3",
+        "info": "main color 3"
+      },
+      {
+        "type": "color",
+        "id": "main_color_4",
+        "default": "#373737",
+        "label": "main color 4",
+        "info": "main color 4"
+      },
+      {
+        "type": "color",
         "id": "colors_accent_1",
         "default": "#121212",
         "label": "t:settings_schema.colors.settings.colors_accent_1.label",
@@ -96,7 +124,7 @@
       {
         "type": "font_picker",
         "id": "type_header_font",
-        "default": "assistant_n4",
+        "default": "poppins_n4",
         "label": "t:settings_schema.typography.settings.type_header_font.label",
         "info": "t:settings_schema.typography.settings.type_header_font.info"
       },
@@ -117,7 +145,7 @@
       {
         "type": "font_picker",
         "id": "type_body_font",
-        "default": "assistant_n4",
+        "default": "poppins_n4",
         "label": "t:settings_schema.typography.settings.type_body_font.label",
         "info": "t:settings_schema.typography.settings.type_body_font.info"
       },
@@ -129,6 +157,27 @@
         "step": 5,
         "unit": "%",
         "label": "t:settings_schema.typography.settings.body_scale.label",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "secondary font"
+      },
+      {
+        "type": "font_picker",
+        "id": "secondary_font",
+        "default": "assistant_n4",
+        "label": "secondary font",
+        "info": "secondary font"
+      },
+      {
+        "type": "range",
+        "id": "secondary_scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "secondary font scale",
         "default": 100
       }
     ]
