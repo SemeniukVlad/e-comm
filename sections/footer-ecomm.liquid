@@ -1,7 +1,28 @@
 <footer class="ecomm-footer">
     <div class="footer-ecomm-upper">
-        <div class="footer-ecomm-company">
-            <h2>{% include 'snippet' %} E-Comm</h2>
+        <div class="footer-ecomm-item footer-ecomm-company">
+            {% include 'ecomm-logo' %}
+            <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Since the 1500s, when an unknown printer.
+            </p>
+            <div class="footer-ecomm-social">
+
+            </div>
+        </div>
+        <div class="footer-ecomm-item footer-ecomm-followus">
+            <h3>Follow Us</h3>
+            <p>
+                Since the 1500s, when an unknown printer took a galley of type and scrambled.
+            </p>
+            <div class="footer-ecomm-social">
+
+            </div>
+        </div>
+        <div class="footer-ecomm-item footer-ecomm-contactus">
+            <h3>Contact Us</h3>
+            <p>
+                E-Comm , 4578 Marmora Road, Glasgow D04 89GR
+            </p>
         </div>
     </div>
     <div class="footer-ecomm-middle">
@@ -11,3 +32,34 @@
 
     </div>
 </footer>
+<style>
+    .footer-ecomm-upper{
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+    .footer-ecomm-item{
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .footer-ecomm-company{
+        max-width: 220px;
+        font-size: 12px;
+        font-weight: 400;
+    }
+    .footer-ecomm-followus{
+        max-width: 200px;
+    }
+    .footer-ecomm-contactus{
+        max-width: 150px;
+    }
+</style>
+{%- style -%}
+    .ecomm-footer{
+        background-color: {{settings.main_color_3}};
+        color: #22262A;
+    }
+{%- endstyle -%}
