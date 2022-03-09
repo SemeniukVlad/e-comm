@@ -6,7 +6,7 @@
     <nav id="ecomm-header-menu">
       <ul id="ecomm-menu">
         {% assign ecomm-menu = section.settings.menu %}
-        {% for link in linklists.ecomm-menu.links %}
+        {% for link in linklists[ecomm-menu].links %}
         {%- if link.active -%}
         <li class="ecomm-menu-item active">
           <a href="{{ link.url }}">{{ link.title }}</a>
