@@ -179,6 +179,27 @@
         "unit": "%",
         "label": "secondary font scale",
         "default": 100
+      },
+      {
+        "type": "header",
+        "content": "additional font"
+      },
+      {
+        "type": "font_picker",
+        "id": "additional_font",
+        "default": "montserrat_n4",
+        "label": "additional font",
+        "info": "additional font"
+      },
+      {
+        "type": "range",
+        "id": "additional_scale",
+        "min": 100,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "label": "additional font scale",
+        "default": 100
       }
     ]
   },
@@ -1190,6 +1211,27 @@
         "id": "currency_code_enabled",
         "label": "t:settings_schema.currency_format.settings.currency_code_enabled.label",
         "default": true
+      }
+    ]
+  },
+  {
+    "name": "FEATURES",
+    "settings": [
+      {
+        "type": "header",
+        "content": "E-comm social links"
+      },
+      {
+        "type": "text",
+        "id": "ecomm-facebook",
+        "label": "Facebook",
+        "info": "Official e-comm facebook link"
+      },
+      {
+        "type": "text",
+        "id": "ecomm-twitter",
+        "label": "Twitter",
+        "info": "Official e-comm twitter link"
       }
     ]
   }

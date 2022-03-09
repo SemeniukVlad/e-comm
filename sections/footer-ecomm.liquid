@@ -1,65 +1,276 @@
 <footer class="ecomm-footer">
-    <div class="footer-ecomm-upper">
-        <div class="footer-ecomm-item footer-ecomm-company">
-            {% include 'ecomm-logo' %}
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Since the 1500s, when an unknown printer.
-            </p>
-            <div class="footer-ecomm-social">
-
+    <div class="ecomm-footer-wrap">
+        <div class="footer-ecomm-upper">
+            <div class="footer-ecomm-item footer-ecomm-company">
+                {% include 'ecomm-logo' %}
+                <p>
+                    {{section.settings.ecomm-company-desc}}
+                </p>
+                {%- if section.settings.show_social_company -%}
+                <div class="footer-ecomm-social">
+                    {%- if settings.ecomm-facebook != "" -%}
+                    <a href="{{settings.ecomm-facebook}}" class="ecomm-footer-social-link">
+                        {% include 'ecomm-facebook' %}
+                    </a>
+                    {%- endif -%}
+                    {%- if settings.ecomm-twitter != "" -%}
+                    <a href="{{settings.ecomm-twitter}}" class="ecomm-footer-social-link">
+                        {% include 'ecomm-twitter' %}
+                    </a>
+                    {%- endif -%}
+                </div>
+                {%- endif -%}
+            </div>
+            <div class="footer-ecomm-item footer-ecomm-followus">
+                <h3>Follow Us</h3>
+                <p>
+                    {{section.settings.ecomm-followus-desc}}
+                </p>
+                {%- if section.settings.show_social_followus -%}
+                <div class="footer-ecomm-social">
+                    {%- if settings.ecomm-facebook != "" -%}
+                    <a href="{{settings.ecomm-facebook}}" class="ecomm-footer-social-link">
+                        {% include 'ecomm-facebook' %}
+                    </a>
+                    {%- endif -%}
+                    {%- if settings.ecomm-twitter != "" -%}
+                    <a href="{{settings.ecomm-twitter}}" class="ecomm-footer-social-link">
+                        {% include 'ecomm-twitter' %}
+                    </a>
+                    {%- endif -%}
+                </div>
+                {%- endif -%}
+            </div>
+            <div class="footer-ecomm-item footer-ecomm-contactus">
+                <h3>Contact Us</h3>
+                <p>
+                    E-Comm, {{shop.address.street}}, {{shop.address.city}} {{shop.address.zip}}
+                </p>
             </div>
         </div>
-        <div class="footer-ecomm-item footer-ecomm-followus">
-            <h3>Follow Us</h3>
-            <p>
-                Since the 1500s, when an unknown printer took a galley of type and scrambled.
-            </p>
-            <div class="footer-ecomm-social">
-
-            </div>
+        <div class="footer-ecomm-middle">
+            {% if section.settings.footer-menu1 != "" %}
+            <nav id="ecomm-footer-menu1">
+                <ul id="ecomm-menu1">
+                    {% assign ecomm-footer-menu1 = section.settings.footer-menu1 %}
+                    {% for link in linklists[ecomm-footer-menu1].links %}
+                    <li class="ecomm-footer-menu-item">
+                        {{ link.title }}
+                        {% if link.links != blank %}
+                        <ul class="ecomm-footer-menu-child">
+                            {% for child_link in link.links %}
+                            <li class="ecomm-footer-child-item">
+                                <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+            {% if section.settings.footer-menu2 != "" %}
+            <nav id="ecomm-footer-menu2">
+                <ul id="ecomm-menu2">
+                    {% assign ecomm-footer-menu2 = section.settings.footer-menu2 %}
+                    {% for link in linklists[ecomm-footer-menu2].links %}
+                    <li class="ecomm-footer-menu-item">
+                        {{ link.title }}
+                        {% if link.links != blank %}
+                        <ul class="ecomm-footer-menu-child">
+                            {% for child_link in link.links %}
+                            <li class="ecomm-footer-child-item">
+                                <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+            {% if section.settings.footer-menu3 != "" %}
+            <nav id="ecomm-footer-menu3">
+                <ul id="ecomm-menu3">
+                    {% assign ecomm-footer-menu3 = section.settings.footer-menu3 %}
+                    {% for link in linklists[ecomm-footer-menu3].links %}
+                    <li class="ecomm-footer-menu-item">
+                        {{ link.title }}
+                        {% if link.links != blank %}
+                        <ul class="ecomm-footer-menu-child">
+                            {% for child_link in link.links %}
+                            <li class="ecomm-footer-child-item">
+                                <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
+            {% if section.settings.footer-menu4 != "" %}
+            <nav id="ecomm-footer-menu4">
+                <ul id="ecomm-menu4">
+                    {% assign ecomm-footer-menu4 = section.settings.footer-menu4 %}
+                    {% for link in linklists[ecomm-footer-menu4].links %}
+                    <li class="ecomm-footer-menu-item">
+                        {{ link.title }}
+                        {% if link.links != blank %}
+                        <ul class="ecomm-footer-menu-child">
+                            {% for child_link in link.links %}
+                            <li class="ecomm-footer-child-item">
+                                <a href="{{ child_link.url }}">{{ child_link.title }}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </nav>
+            {% endif %}
         </div>
-        <div class="footer-ecomm-item footer-ecomm-contactus">
-            <h3>Contact Us</h3>
-            <p>
-                E-Comm , 4578 Marmora Road, Glasgow D04 89GR
-            </p>
+        <div class="footer-ecomm-bottom">
+
         </div>
-    </div>
-    <div class="footer-ecomm-middle">
-
-    </div>
-    <div class="footer-ecomm-bottom">
-
     </div>
 </footer>
 <style>
-    .footer-ecomm-upper{
+    .ecomm-footer-wrap {
+        margin: 0 auto;
+        padding: 150px 7% 0;
+        max-width: 1500px;
+    }
+
+    .footer-ecomm-upper {
         display: flex;
         flex-flow: row wrap;
         align-items: flex-start;
         justify-content: space-between;
     }
-    .footer-ecomm-item{
+
+    .footer-ecomm-item {
         display: flex;
         flex-flow: column nowrap;
         align-items: flex-start;
         justify-content: flex-start;
     }
-    .footer-ecomm-company{
+
+    .footer-ecomm-company {
         max-width: 220px;
-        font-size: 12px;
         font-weight: 400;
     }
-    .footer-ecomm-followus{
+
+    .footer-ecomm-followus {
         max-width: 200px;
     }
-    .footer-ecomm-contactus{
+
+    .footer-ecomm-contactus {
         max-width: 150px;
+    }
+
+    .footer-ecomm-contactus>p {
+        font-size: 14px;
+    }
+
+    .footer-ecomm-item>h3 {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    .ecomm-footer-social-link {
+        text-decoration: none;
+        margin-right: 20%;
+    }
+
+    .ecomm-footer-social-link:last-of-type {
+        margin-right: 0;
+    }
+
+    .footer-ecomm-social {
+        display: flex;
+        width: 100%;
+        flex-flow: row nowrap;
+        align-items: flex-end;
+        justify-content: flex-start;
     }
 </style>
 {%- style -%}
-    .ecomm-footer{
-        background-color: {{settings.main_color_3}};
-        color: #22262A;
-    }
+.ecomm-footer{
+background-color: {{settings.main_color_3}};
+color: #22262A;
+}
+.footer-ecomm-company>p{
+font-family: {{settings.additional_font.family}}, {{ settings.additional_font.fallback_families }};
+font-size: 12px;
+font-weight: 400;
+}
+.footer-ecomm-followus>p{
+font-family: {{settings.additional_font.family}}, {{ settings.additional_font.fallback_families }};
+font-size: 12px;
+font-weight: 400;
+}
 {%- endstyle -%}
+{% schema %}
+{
+"name": "Footer e-comm",
+"settings": [
+{
+"type": "header",
+"content": "E-comm edit descriptions"
+},
+{
+"type": "textarea",
+"id": "ecomm-company-desc",
+"label": "Company description",
+"default": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever.Since the 1500s, when an unknown printer."
+},
+{
+"type": "textarea",
+"id": "ecomm-followus-desc",
+"label": "Follow us description",
+"default": "Since the 1500s, when an unknown printer took a galley of type and scrambled."
+},
+{
+"type": "checkbox",
+"id": "show_social_company",
+"label": "Show social links in company desc.",
+"default": false
+},
+{
+"type": "checkbox",
+"id": "show_social_followus",
+"label": "Show social links in follow us desc.",
+"default": true
+},
+{
+"type": "header",
+"content": "Footer menus"
+},
+{
+"type": "link_list",
+"id": "footer-menu1",
+"label": "footer menu 1"
+},
+{
+"type": "link_list",
+"id": "footer-menu2",
+"label": "footer menu 2"
+},
+{
+"type": "link_list",
+"id": "footer-menu3",
+"label": "footer menu 3"
+},
+{
+"type": "link_list",
+"id": "footer-menu4",
+"label": "footer menu 4"
+}
+]
+}
+{% endschema %}
