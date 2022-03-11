@@ -2,7 +2,7 @@
     <div class="ecomm-footer-wrap">
         <div class="footer-ecomm-upper">
             <div class="footer-ecomm-item footer-ecomm-company">
-                {% include 'ecomm-logo' %}
+                {% render 'ecomm-logo' %}
                 <p>
                     {{section.settings.ecomm-company-desc}}
                 </p>
@@ -10,12 +10,12 @@
                 <div class="footer-ecomm-social">
                     {%- if settings.ecomm-facebook != "" -%}
                     <a href="{{settings.ecomm-facebook}}" class="ecomm-footer-social-link">
-                        {% include 'ecomm-facebook' %}
+                        {% render 'ecomm-facebook' %}
                     </a>
                     {%- endif -%}
                     {%- if settings.ecomm-twitter != "" -%}
                     <a href="{{settings.ecomm-twitter}}" class="ecomm-footer-social-link">
-                        {% include 'ecomm-twitter' %}
+                        {% render 'ecomm-twitter' %}
                     </a>
                     {%- endif -%}
                 </div>
@@ -30,12 +30,12 @@
                 <div class="footer-ecomm-social">
                     {%- if settings.ecomm-facebook != "" -%}
                     <a href="{{settings.ecomm-facebook}}" class="ecomm-footer-social-link">
-                        {% include 'ecomm-facebook' %}
+                        {% render 'ecomm-facebook' %}
                     </a>
                     {%- endif -%}
                     {%- if settings.ecomm-twitter != "" -%}
                     <a href="{{settings.ecomm-twitter}}" class="ecomm-footer-social-link">
-                        {% include 'ecomm-twitter' %}
+                        {% render 'ecomm-twitter' %}
                     </a>
                     {%- endif -%}
                 </div>
@@ -49,15 +49,17 @@
             </div>
         </div>
         <div class="footer-ecomm-middle">
+            {% assign counter = 0 %}
             {% if section.settings.footer-menu1 != "" %}
-            <nav id="ecomm-footer-menu1">
-                <ul id="ecomm-menu1">
+            {% assign counter = counter | plus: 1 %}
+            <nav id="ecomm-footer-menu1" class="ecomm-footer-nav">
+                <ul id="ecomm-menu1" class = "ecomm-footer-list">
                     {% assign ecomm-footer-menu1 = section.settings.footer-menu1 %}
                     {% for link in linklists[ecomm-footer-menu1].links %}
                     <li class="ecomm-footer-menu-item">
                         {{ link.title }}
                         {% if link.links != blank %}
-                        <ul class="ecomm-footer-menu-child">
+                        <ul class="ecomm-footer-menu-child ecomm-footer-list">
                             {% for child_link in link.links %}
                             <li class="ecomm-footer-child-item">
                                 <a href="{{ child_link.url }}">{{ child_link.title }}</a>
@@ -71,14 +73,15 @@
             </nav>
             {% endif %}
             {% if section.settings.footer-menu2 != "" %}
-            <nav id="ecomm-footer-menu2">
-                <ul id="ecomm-menu2">
+            {% assign counter = counter | plus: 1 %}
+            <nav id="ecomm-footer-menu2" class="ecomm-footer-nav">
+                <ul id="ecomm-menu2" class = "ecomm-footer-list">
                     {% assign ecomm-footer-menu2 = section.settings.footer-menu2 %}
                     {% for link in linklists[ecomm-footer-menu2].links %}
                     <li class="ecomm-footer-menu-item">
                         {{ link.title }}
                         {% if link.links != blank %}
-                        <ul class="ecomm-footer-menu-child">
+                        <ul class="ecomm-footer-menu-child ecomm-footer-list">
                             {% for child_link in link.links %}
                             <li class="ecomm-footer-child-item">
                                 <a href="{{ child_link.url }}">{{ child_link.title }}</a>
@@ -92,14 +95,15 @@
             </nav>
             {% endif %}
             {% if section.settings.footer-menu3 != "" %}
-            <nav id="ecomm-footer-menu3">
-                <ul id="ecomm-menu3">
+            {% assign counter = counter | plus: 1 %}
+            <nav id="ecomm-footer-menu3" class="ecomm-footer-nav">
+                <ul id="ecomm-menu3" class = "ecomm-footer-list">
                     {% assign ecomm-footer-menu3 = section.settings.footer-menu3 %}
                     {% for link in linklists[ecomm-footer-menu3].links %}
                     <li class="ecomm-footer-menu-item">
                         {{ link.title }}
                         {% if link.links != blank %}
-                        <ul class="ecomm-footer-menu-child">
+                        <ul class="ecomm-footer-menu-child ecomm-footer-list">
                             {% for child_link in link.links %}
                             <li class="ecomm-footer-child-item">
                                 <a href="{{ child_link.url }}">{{ child_link.title }}</a>
@@ -113,14 +117,15 @@
             </nav>
             {% endif %}
             {% if section.settings.footer-menu4 != "" %}
-            <nav id="ecomm-footer-menu4">
-                <ul id="ecomm-menu4">
+            {% assign counter = counter | plus: 1 %}
+            <nav id="ecomm-footer-menu4" class="ecomm-footer-nav">
+                <ul id="ecomm-menu4" class = "ecomm-footer-list">
                     {% assign ecomm-footer-menu4 = section.settings.footer-menu4 %}
                     {% for link in linklists[ecomm-footer-menu4].links %}
                     <li class="ecomm-footer-menu-item">
                         {{ link.title }}
                         {% if link.links != blank %}
-                        <ul class="ecomm-footer-menu-child">
+                        <ul class="ecomm-footer-menu-child ecomm-footer-list">
                             {% for child_link in link.links %}
                             <li class="ecomm-footer-child-item">
                                 <a href="{{ child_link.url }}">{{ child_link.title }}</a>
@@ -132,10 +137,37 @@
                     {% endfor %}
                 </ul>
             </nav>
+            {%- style -%}
+                .footer-ecomm-middle{
+                    margin-top: 70px;
+                    display: flex;
+                    flex-flow: row wrap;
+                    align-items: flex-start;
+                    {% if counter > 2 %}
+                    justify-content: space-between;
+                    {% else %}
+                    justify-content: flex-start;
+                    {% endif %}
+                }
+                {% if counter == 2 %}
+                .ecomm-footer-nav:nth-of-type(2){
+                    margin-left: 15%;
+                }
+                {% endif %}
+            {%- endstyle -%}
             {% endif %}
         </div>
+        <div class="footer-ecomm-line"></div>
         <div class="footer-ecomm-bottom">
-
+            <p class="footer-ecomm-copy">© {{ "now" | date: "%Y" }} Ecommerce theme by www.bisenbaev.com</p>
+            {% if section.settings.show_payment_footer %}
+            <div class="footer-ecomm-payment">
+                <a href="#" class="footer-ecomm-payment-link">{% render 'ecomm-western-union' %}</a>
+                <a href="#" class="footer-ecomm-payment-link">{% render 'ecomm-master-card' %}</a>
+                <a href="#" class="footer-ecomm-payment-link">{% render 'ecomm-paypal' %}</a>
+                <a href="#" class="footer-ecomm-payment-link">{% render 'ecomm-visa' %}</a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </footer>
@@ -171,6 +203,7 @@
 
     .footer-ecomm-contactus {
         max-width: 150px;
+        margin-right: 8%;
     }
 
     .footer-ecomm-contactus>p {
@@ -198,6 +231,51 @@
         align-items: flex-end;
         justify-content: flex-start;
     }
+
+    .ecomm-footer-list{
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+    }
+    .ecomm-footer-list a{
+        text-decoration: none;
+        color: inherit;
+    }
+    .ecomm-footer-nav{
+        min-width: 152px;
+    }
+
+    .ecomm-footer-menu-item{
+        font-size: 18px;
+    }
+    .ecomm-footer-menu-child{
+        margin-top: 30px;
+    }
+    .ecomm-footer-child-item{
+        font-size: 14px;
+    }
+    .footer-ecomm-line{
+        border-top: 1px solid red;
+        height: 2px;
+        padding-top: 1px;
+        width: 100%;
+        background: red;
+    }
+    .footer-ecomm-bottom{
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-end;
+        justify-content: space-between;
+        padding-top: 30px;
+    }
+    .footer-ecomm-copy{
+        font-size: 14px;
+        color: #C1C8CE;
+        margin: 0;
+    }
+    .footer-ecomm-payment-link{
+        text-decoration: none;
+    }
 </style>
 {%- style -%}
 .ecomm-footer{
@@ -213,6 +291,8 @@ font-weight: 400;
 font-family: {{settings.additional_font.family}}, {{ settings.additional_font.fallback_families }};
 font-size: 12px;
 font-weight: 400;
+
+
 }
 {%- endstyle -%}
 {% schema %}
@@ -270,6 +350,12 @@ font-weight: 400;
 "type": "link_list",
 "id": "footer-menu4",
 "label": "footer menu 4"
+},
+{
+"type": "checkbox",
+"id": "show_payment_footer",
+"label": "Show payment methods",
+"default": true
 }
 ]
 }
