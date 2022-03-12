@@ -1,7 +1,5 @@
 {
   "current": {
-    "ecomm-facebook": "https:\/\/www.facebook.com",
-    "ecomm-twitter": "https:\/\/www.twitter.com",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
@@ -96,8 +94,7 @@
           "footer-menu1": "footer-menu-information",
           "footer-menu2": "footer-menu-service",
           "footer-menu3": "footer-menu-my-account",
-          "footer-menu4": "footer-menu-our-offers",
-          "show_payment_footer": true
+          "footer-menu4": "footer-menu-our-offers"
         }
       }
     },

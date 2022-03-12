@@ -159,7 +159,7 @@
         </div>
         <div class="footer-ecomm-line"></div>
         <div class="footer-ecomm-bottom">
-            <p class="footer-ecomm-copy">© {{ "now" | date: "%Y" }} Ecommerce theme by www.bisenbaev.com</p>
+            <p class="footer-ecomm-copy">© {{ "now" | date: "%Y" }} {{section.settings.ecomm-copy-desc}}</p>
             {% if section.settings.show_payment_footer %}
             <div class="footer-ecomm-payment">
                 <a href="#" class="footer-ecomm-payment-link">{% render 'ecomm-western-union' %}</a>
@@ -385,6 +385,12 @@
 "id": "show_payment_footer",
 "label": "Show payment methods",
 "default": true
+},
+{
+"type": "textarea",
+"id": "ecomm-copy-desc",
+"label": "Edit copyright text",
+"default": "Ecommerce theme by www.bisenbaev.com"
 }
 ]
 }
