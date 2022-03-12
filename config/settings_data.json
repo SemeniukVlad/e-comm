@@ -1,7 +1,7 @@
 {
   "current": {
-    "ecomm-facebook": "www.facebook.com",
-    "ecomm-twitter": "www.twitter.com",
+    "ecomm-facebook": "https:\/\/www.facebook.com",
+    "ecomm-twitter": "https:\/\/www.twitter.com",
     "sections": {
       "announcement-bar": {
         "type": "announcement-bar",
