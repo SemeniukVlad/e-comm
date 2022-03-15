@@ -1,10 +1,295 @@
-<div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <h2>Super Flash Sale</h2>
-            <p>50% Off</p>
+<div class="swiper ecomm-hero-slider">
+    <div class="swiper-wrapper ecomm-hero-slide-wrapper">
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-1">
+            <h2>{{section.settings.ecomm-hero-slide-1-title}}</h2>
         </div>
-        <div class="swiper-slide">Slide 2</div>
-        <div class="swiper-slide">Slide 3</div>
+        {% if section.settings.ecomm-show-slide-2 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-2">
+            <h2>{{section.settings.ecomm-hero-slide-2-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-3 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-3">
+            <h2>{{section.settings.ecomm-hero-slide-3-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-4 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-4">
+            <h2>{{section.settings.ecomm-hero-slide-4-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-5 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-5">
+            <h2>{{section.settings.ecomm-hero-slide-5-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-6 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-6">
+            <h2>{{section.settings.ecomm-hero-slide-6-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-7 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-7">
+            <h2>{{section.settings.ecomm-hero-slide-7-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-8 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-8">
+            <h2>{{section.settings.ecomm-hero-slide-8-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-9 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-9">
+            <h2>{{section.settings.ecomm-hero-slide-9-title}}</h2>
+        </div>
+        {% endif %}
+        {% if section.settings.ecomm-show-slide-10 %}
+        <div class="swiper-slide ecomm-hero-slide ecomm-hero-slide-10">
+            <h2>{{section.settings.ecomm-hero-slide-10-title}}</h2>
+        </div>
+        {% endif %}
     </div>
+    <div class="swiper-pagination ecomm-hero-slider-pagination"></div>
 </div>
+<script>
+    const ecommHeroSlider = new Swiper('.ecomm-hero-slider', {
+  direction: 'horizontal',
+  loop: true,
+
+  pagination: {
+    el: '.ecomm-hero-slider-pagination',
+    clickable: true
+  },
+});
+</script>
+<style>
+    .ecomm-hero-slider{
+        height: 654px;
+        margin-bottom: 100px;
+    }
+    .ecomm-hero-slide{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        
+    }
+    .ecomm-hero-slider-pagination{
+    }
+</style>
+{%- style -%}
+    .ecomm-hero-slide-1{
+        background: url("{{section.settings.ecomm-hero-slide-1-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-2{
+        background: url("{{section.settings.ecomm-hero-slide-2-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-3{
+        background: url("{{section.settings.ecomm-hero-slide-3-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-4{
+        background: url("{{section.settings.ecomm-hero-slide-4-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-5{
+        background: url("{{section.settings.ecomm-hero-slide-5-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-6{
+        background: url("{{section.settings.ecomm-hero-slide-6-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-7{
+        background: url("{{section.settings.ecomm-hero-slide-7-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-8{
+        background: url("{{section.settings.ecomm-hero-slide-8-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-9{
+        background: url("{{section.settings.ecomm-hero-slide-9-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+    .ecomm-hero-slide-10{
+        background: url("{{section.settings.ecomm-hero-slide-10-image | image_url: height: 654}}") center no-repeat;
+        background-size: cover;
+    }
+{%- endstyle -%}
+{% schema %}
+{
+"name": "Hero banner slider",
+"settings": [
+    {
+        "type": "header",
+        "content": "E-comm edit banner"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-1-title",
+        "label": "Edit slide 1 title",
+        "default": "Super Flash Sale 50% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-1-image",
+        "label": "Edit slide 1 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-2",
+        "default": true,
+        "label": "Show slide 2?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-2-title",
+        "label": "Edit slide 2 title",
+        "default": "Mega Flash Sale 70% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-2-image",
+        "label": "Edit slide 2 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-3",
+        "default": false,
+        "label": "Show slide 3?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-3-title",
+        "label": "Edit slide 3 title",
+        "default": "Flash Sale 30% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-3-image",
+        "label": "Edit slide 3 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-4",
+        "default": false,
+        "label": "Show slide 4?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-4-title",
+        "label": "Edit slide 4 title",
+        "default": "Super Mega Flash Sale 80% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-4-image",
+        "label": "Edit slide 4 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-5",
+        "default": false,
+        "label": "Show slide 5?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-5-title",
+        "label": "Edit slide 5 title",
+        "default": "Ultra Flash Sale 75% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-5-image",
+        "label": "Edit slide 5 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-6",
+        "default": false,
+        "label": "Show slide 6?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-6-title",
+        "label": "Edit slide 6 title",
+        "default": "New Flash Sale 20% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-6-image",
+        "label": "Edit slide 6 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-7",
+        "default": false,
+        "label": "Show slide 7?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-7-title",
+        "label": "Edit slide 7 title",
+        "default": "Seasonal Flash Sale 45% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-7-image",
+        "label": "Edit slide 7 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-8",
+        "default": false,
+        "label": "Show slide 8?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-8-title",
+        "label": "Edit slide 8 title",
+        "default": "Flash Sale 10% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-8-image",
+        "label": "Edit slide 8 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-9",
+        "default": false,
+        "label": "Show slide 9?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-9-title",
+        "label": "Edit slide 9 title",
+        "default": "Special Flash Sale 54% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-9-image",
+        "label": "Edit slide 9 image"
+    },
+    {
+        "type": "checkbox",
+        "id": "ecomm-show-slide-10",
+        "default": false,
+        "label": "Show slide 10?"
+    },
+    {
+        "type": "textarea",
+        "id": "ecomm-hero-slide-10-title",
+        "label": "Edit slide 10 title",
+        "default": "Retro Flash Sale 20% Off"
+    },
+    {
+        "type": "image_picker",
+        "id": "ecomm-hero-slide-10-image",
+        "label": "Edit slide 10 image"
+    }
+]
+}
+{% endschema %}
