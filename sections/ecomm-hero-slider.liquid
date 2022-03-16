@@ -1,17 +1,19 @@
 <div class="swiper ecomm-hero-slider">
     <div class="swiper-wrapper ecomm-hero-slide-wrapper">
+        {% assign iterator = 1 %}
         {% for block in section.blocks %}
         {% case block.type %}
         {% when 'ecomm-slide' %}
-        <div class="swiper-slide ecomm-hero-slide" {{ block.shopify_attributes }}>
+        <div class="swiper-slide ecomm-hero-slide{{iterator}}" {{ block.shopify_attributes }}>
             <h2>{{block.settings.ecomm-hero-slide-title}}</h2>
         </div>
         {%- style -%}
-        .ecomm-hero-slide{
+        .ecomm-hero-slide{{iterator}}{
             background: url("{{block.settings.ecomm-hero-slide-image | image_url: height: 654}}") center no-repeat;
             background-size: cover;
         }
         {%- endstyle -%}
+        {% assign iterator = iterator | plus: 1 %}
         {% endcase %}
         {% endfor %}
     </div>
