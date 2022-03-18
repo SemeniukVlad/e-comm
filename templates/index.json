@@ -7,14 +7,20 @@
           "type": "ecomm-slide",
           "settings": {
             "ecomm-hero-slide-title": "Super Flash Sale 50% Off",
-            "ecomm-hero-slide-image": "shopify:\/\/shop_images\/Promotion-Image.png"
+            "ecomm-hero-slide-image": "shopify:\/\/shop_images\/Promotion-Image.png",
+            "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
+            "title-color": "white",
+            "title-position": "left-mid"
           }
         },
         "ca7aeb93-dab2-4626-baf2-209264e9551b": {
           "type": "ecomm-slide",
           "settings": {
             "ecomm-hero-slide-title": "Mega Flash Sale 50% Off",
-            "ecomm-hero-slide-image": "shopify:\/\/shop_images\/Promotion-Image.png"
+            "ecomm-hero-slide-image": "shopify:\/\/shop_images\/Promotion-Image.png",
+            "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
+            "title-color": "white",
+            "title-position": "right-bot"
           }
         }
       },
