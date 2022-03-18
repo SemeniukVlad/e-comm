@@ -60,7 +60,6 @@
         {% endcase %}
         {% endfor %}
     </div>
-    <div class="swiper-pagination ecomm-hero-slider-pagination"></div>
 </div>
 <div class="swiper ecomm-hero-slider-mobile">
     <div class="swiper-wrapper ecomm-hero-slide-wrapper-mobile">
@@ -93,11 +92,11 @@
         {% endcase %}
         {% case block.settings.title-position %}
         {% when "left-bot" %}
-        padding-left:100px;
+        padding-left:20px;
         grid-column: 1 / 2;
         grid-row: 3/ 4;
         {% when "left-mid" %}
-        padding-left:100px;
+        padding-left:20px;
         grid-column: 1 / 2;
         grid-row: 2/ 3;
         {% when "center-bot" %}
@@ -133,23 +132,19 @@
         speed: 3000,
         autoplay: {
             delay: 5000,
-        },
-        pagination: {
-            el: '.ecomm-hero-slider-pagination',
-            clickable: true
-        },
+        }
     });
     const ecommHeroSliderMobile = new Swiper('.ecomm-hero-slider-mobile', {
         direction: 'horizontal',
         loop: true,
-        speed: 3000,
+        speed: 1000,
         autoplay: {
             delay: 5000,
         },
         pagination: {
             el: '.ecomm-hero-slider-pagination',
             clickable: true
-        },
+        }
     });
 </script>
 <style>
@@ -167,10 +162,15 @@
     .ecomm-hero-slider-pagination {
         position: relative;
         bottom: initial !important;
-        display: none;
     }
     .ecomm-hero-slider-mobile{
         display: none;
+    }
+    .ecomm-hero-slider-mobile {
+        max-width: 990px;
+        margin: 0 auto;
+        overflow-y: visible;
+        overflow-x: hidden;
     }
     @media screen and (max-width: 990px) {
         .ecomm-hero-slider {
