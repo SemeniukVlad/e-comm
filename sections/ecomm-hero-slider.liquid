@@ -10,20 +10,114 @@
         </div>
         {%- style -%}
         .ecomm-hero-slide{{iterator}}>img{
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 10;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
         }
         .ecomm-hero-slide{{iterator}}>h2{
-            position: relative;
-            z-index: 11;
-            font-size:64px;   
+        position: relative;
+        z-index: 11;
+        font-size: 64px;
+        font-weight: 700;
+        width:570px;
+        {% case block.settings.title-color %}
+        {% when "white" %}
+        color: white;
+        {% when "black" %}
+        color: black;
+        {% endcase %}
+        {% case block.settings.title-position %}
+        {% when "left-bot" %}
+        padding-left:100px;
+        grid-column: 1 / 2;
+        grid-row: 3/ 4;
+        {% when "left-mid" %}
+        padding-left:100px;
+        grid-column: 1 / 2;
+        grid-row: 2/ 3;
+        {% when "center-bot" %}
+        grid-column: 2 / 3;
+        grid-row: 3/ 4;
+        {% when "center-mid" %}
+        grid-column: 2 / 3;
+        grid-row: 2/ 3;
+        {% when "right-bot" %}
+        grid-column: 3 / 4;
+        grid-row: 3/ 4;
+        {% when "right-mid" %}
+        grid-column: 3/ 4;
+        grid-row: 2/ 3;
+        {% endcase %}
         }
         .ecomm-hero-slide{{iterator}}{
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        }
+        {%- endstyle -%}
+        {% assign iterator = iterator | plus: 1 %}
+        {% endcase %}
+        {% endfor %}
+    </div>
+    <div class="swiper-pagination ecomm-hero-slider-pagination"></div>
+</div>
+<div class="swiper ecomm-hero-slider-mobile">
+    <div class="swiper-wrapper ecomm-hero-slide-wrapper-mobile">
+        {% assign iterator = 1 %}
+        {% for block in section.blocks %}
+        {% case block.type %}
+        {% when 'ecomm-slide' %}
+        <div class="swiper-slide ecomm-hero-slide{{iterator}}-mobile" {{ block.shopify_attributes }}>
+            <h2>{{ block.settings.ecomm-hero-slide-title }}</h2>
+            {{ block.settings.ecomm-hero-slide-mobile-image | image_url: height: 206 | image_tag }}
+        </div>
+        {%- style -%}
+        .ecomm-hero-slide{{iterator}}-mobile>img{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        }
+        .ecomm-hero-slide{{iterator}}-mobile>h2{
+        position: relative;
+        z-index: 11;
+        font-size: 64px;
+        font-weight: 700;
+        width:570px;
+        {% case block.settings.title-color %}
+        {% when "white" %}
+        color: white;
+        {% when "black" %}
+        color: black;
+        {% endcase %}
+        {% case block.settings.title-position %}
+        {% when "left-bot" %}
+        padding-left:100px;
+        grid-column: 1 / 2;
+        grid-row: 3/ 4;
+        {% when "left-mid" %}
+        padding-left:100px;
+        grid-column: 1 / 2;
+        grid-row: 2/ 3;
+        {% when "center-bot" %}
+        grid-column: 2 / 3;
+        grid-row: 3/ 4;
+        {% when "center-mid" %}
+        grid-column: 2 / 3;
+        grid-row: 2/ 3;
+        {% when "right-bot" %}
+        grid-column: 3 / 4;
+        grid-row: 3/ 4;
+        {% when "right-mid" %}
+        grid-column: 3/ 4;
+        grid-row: 2/ 3;
+        {% endcase %}
+        }
+        .ecomm-hero-slide{{iterator}}-mobile{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
         }
         {%- endstyle -%}
         {% assign iterator = iterator | plus: 1 %}
@@ -35,8 +129,23 @@
 <script>
     const ecommHeroSlider = new Swiper('.ecomm-hero-slider', {
         direction: 'horizontal',
-        loop: false,
-
+        loop: true,
+        speed: 3000,
+        autoplay: {
+            delay: 5000,
+        },
+        pagination: {
+            el: '.ecomm-hero-slider-pagination',
+            clickable: true
+        },
+    });
+    const ecommHeroSliderMobile = new Swiper('.ecomm-hero-slider-mobile', {
+        direction: 'horizontal',
+        loop: true,
+        speed: 3000,
+        autoplay: {
+            delay: 5000,
+        },
         pagination: {
             el: '.ecomm-hero-slider-pagination',
             clickable: true
@@ -47,11 +156,30 @@
     .ecomm-hero-slider {
         max-width: 1500px;
         margin: 0 auto;
-        height: 654px;
-        margin-bottom: 100px;
+        overflow-y: visible;
+        overflow-x: hidden;
     }
 
-    .ecomm-hero-slider-pagination {}
+    .ecomm-hero-slide-wrapper {
+        height: 654px;
+    }
+
+    .ecomm-hero-slider-pagination {
+        position: relative;
+        bottom: initial !important;
+        display: none;
+    }
+    .ecomm-hero-slider-mobile{
+        display: none;
+    }
+    @media screen and (max-width: 990px) {
+        .ecomm-hero-slider {
+            display: none;
+        }
+        .ecomm-hero-slider-mobile{
+            display: initial;
+        }
+    }
 </style>
 {%- style -%}
 
@@ -90,8 +218,56 @@
 },
 {
 "type": "image_picker",
-"id": "ecomm-hero-slide-moblie-image",
+"id": "ecomm-hero-slide-mobile-image",
 "label": "Edit slide mobile image"
+},
+{
+"type": "select",
+"id": "title-color",
+"label": "Title color",
+"options": [
+{
+"value": "white",
+"label": "White"
+},
+{
+"value": "black",
+"label": "Black"
+}
+],
+"default": "white"
+},
+{
+"type": "select",
+"id": "title-position",
+"label": "Title position",
+"options": [
+{
+"value": "left-bot",
+"label": "Left bottom"
+},
+{
+"value": "left-mid",
+"label": "Left middle"
+},
+{
+"value": "center-bot",
+"label": "Centered bottom"
+},
+{
+"value": "center-mid",
+"label": "Centered middle"
+},
+{
+"value": "right-bot",
+"label": "Right bottom"
+},
+{
+"value": "right-mid",
+"label": "Right middle"
+}
+],
+"default": "left-mid"
 }
 ]
 }
