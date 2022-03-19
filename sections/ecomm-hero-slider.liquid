@@ -43,9 +43,11 @@
         grid-column: 2 / 3;
         grid-row: 2/ 3;
         {% when "right-bot" %}
+        padding-right:100px;
         grid-column: 3 / 4;
         grid-row: 3/ 4;
         {% when "right-mid" %}
+        padding-right:100px;
         grid-column: 3/ 4;
         grid-row: 2/ 3;
         {% endcase %}
@@ -61,75 +63,96 @@
         {% endfor %}
     </div>
 </div>
-<div class="swiper ecomm-hero-slider-mobile">
-    <div class="swiper-wrapper ecomm-hero-slide-wrapper-mobile">
-        {% assign iterator2 = 1 %}
-        {% for block in section.blocks %}
-        {% case block.type %}
-        {% when 'ecomm-slide' %}
-        <div class="swiper-slide ecomm-hero-slide{{iterator2}}-mobile" {{ block.shopify_attributes }}>
-            <h2>{{ block.settings.ecomm-hero-slide-title }}</h2>
-            {{ block.settings.ecomm-hero-slide-mobile-image | image_url: height: 206 | image_tag }}
+<div class="ecomm-hero-slider-wrap-mobile">
+    <div class="swiper ecomm-hero-slider-mobile">
+        <div class="swiper-wrapper ecomm-hero-slide-wrapper-mobile">
+            {% assign iterator2 = 1 %}
+            {% for block in section.blocks %}
+            {% case block.type %}
+            {% when 'ecomm-slide' %}
+            <div class="swiper-slide ecomm-hero-slide{{iterator2}}-mobile" {{ block.shopify_attributes }}>
+                <h2>{{ block.settings.ecomm-hero-slide-title }}</h2>
+                {{ block.settings.ecomm-hero-slide-mobile-image | image_url: height: 206 | image_tag }}
+            </div>
+            {%- style -%}
+            .ecomm-hero-slide{{iterator2}}-mobile>img{
+            position: relative;
+            grid-column: 1 / 4;
+            grid-row: 1 / 4;
+            height: 100%;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 10;
+            }
+            .ecomm-hero-slide{{iterator2}}-mobile>h2{
+            position: relative;
+            z-index: 11;
+            font-size: 44px;
+            font-weight: 700;
+            width:390px;
+            {% case block.settings.title-color %}
+            {% when "white" %}
+            color: white;
+            {% when "black" %}
+            color: black;
+            {% endcase %}
+            {% case block.settings.title-position %}
+            {% when "left-bot" %}
+            padding-left:20px;
+            grid-column: 1 / 2;
+            grid-row: 3/ 4;
+            {% when "left-mid" %}
+            padding-left:20px;
+            grid-column: 1 / 2;
+            grid-row: 2/ 3;
+            {% when "center-bot" %}
+            grid-column: 2 / 3;
+            grid-row: 3/ 4;
+            {% when "center-mid" %}
+            grid-column: 2 / 3;
+            grid-row: 2/ 3;
+            {% when "right-bot" %}
+            padding-right:20px;
+            grid-column: 3 / 4;
+            grid-row: 3/ 4;
+            {% when "right-mid" %}
+            padding-right:20px;
+            grid-column: 3/ 4;
+            grid-row: 2/ 3;
+            {% endcase %}
+            }
+            .ecomm-hero-slide{{iterator2}}-mobile{
+            display: grid;
+            grid-template-columns: repeat(3, auto);
+            grid-template-rows: repeat(3, auto);
+            width: 100%;
+            height: auto;
+            border-radius: {{block.settings.ecomm-banner-border-radius}}px;
+            overflow: hidden;
+            }
+    
+            .swiper-pagination-bullet{
+                background: #EBF0FF;
+                opacity: 1;
+            }
+    
+            .swiper-pagination-bullet-active{
+                background: {{settings.main_color_1}}
+            }
+    
+            @media screen and (max-width: 565px) {
+                .ecomm-hero-slide{{iterator2}}-mobile>h2{
+                font-size: 24px;
+                width:220px;
+            }
+            {%- endstyle -%}
+            {% assign iterator2 = iterator2 | plus: 1 %}
+            {% endcase %}
+            {% endfor %}
         </div>
-        {%- style -%}
-        .ecomm-hero-slide{{iterator2}}-mobile>img{
-        position: relative;
-        grid-column: 1 / 4;
-        grid-row: 1 / 4;
-        height: 100%;
-        width: 100%;
-        top: 0;
-        left: 0;
-        z-index: 10;
-        }
-        .ecomm-hero-slide{{iterator2}}-mobile>h2{
-        position: relative;
-        z-index: 11;
-        font-size: 24px;
-        font-weight: 700;
-        width:210px;
-        {% case block.settings.title-color %}
-        {% when "white" %}
-        color: white;
-        {% when "black" %}
-        color: black;
-        {% endcase %}
-        {% case block.settings.title-position %}
-        {% when "left-bot" %}
-        padding-left:20px;
-        grid-column: 1 / 2;
-        grid-row: 3/ 4;
-        {% when "left-mid" %}
-        padding-left:20px;
-        grid-column: 1 / 2;
-        grid-row: 2/ 3;
-        {% when "center-bot" %}
-        grid-column: 2 / 3;
-        grid-row: 3/ 4;
-        {% when "center-mid" %}
-        grid-column: 2 / 3;
-        grid-row: 2/ 3;
-        {% when "right-bot" %}
-        grid-column: 3 / 4;
-        grid-row: 3/ 4;
-        {% when "right-mid" %}
-        grid-column: 3/ 4;
-        grid-row: 2/ 3;
-        {% endcase %}
-        }
-        .ecomm-hero-slide{{iterator2}}-mobile{
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        width: 100%;
-        height: auto;
-        }
-        {%- endstyle -%}
-        {% assign iterator2 = iterator2 | plus: 1 %}
-        {% endcase %}
-        {% endfor %}
+        <div class="swiper-pagination ecomm-hero-slider-pagination"></div>
     </div>
-    <div class="swiper-pagination ecomm-hero-slider-pagination"></div>
 </div>
 <script>
     const ecommHeroSlider = new Swiper('.ecomm-hero-slider', {
@@ -144,6 +167,7 @@
         direction: 'horizontal',
         loop: true,
         speed: 1000,
+        spaceBetween: 20,
         autoplay: {
             delay: 5000,
         },
@@ -178,6 +202,10 @@
         overflow-y: visible;
         overflow-x: hidden;
     }
+    .ecomm-hero-slider-wrap-mobile {
+        padding: 15px;
+    }
+
     @media screen and (max-width: 990px) {
         .ecomm-hero-slider {
             display: none;
@@ -274,6 +302,16 @@
 }
 ],
 "default": "left-mid"
+},
+{
+    "type": "range",
+    "id": "ecomm-banner-border-radius",
+    "min": 0,
+    "max": 50,
+    "step": 1,
+    "unit": "px",
+    "label": "Banner border radius",
+    "default": 0
 }
 ]
 }
