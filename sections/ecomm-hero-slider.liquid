@@ -6,45 +6,10 @@
         {% when 'ecomm-slide' %}
         <div class="swiper-slide ecomm-hero-slide{{iterator}}" {{ block.shopify_attributes }}>
             <h2>{{ block.settings.ecomm-hero-slide-title }}</h2>
-            {% assign timer-month = block.settings.ecomm-timer-month %}
-            {% assign timer-day = block.settings.ecomm-timer-day %}
-            {% assign timer-year = block.settings.ecomm-timer-year %}
-            {% assign timer-hour = block.settings.ecomm-timer-hour %}
-            {% assign timer-minute = block.settings.ecomm-timer-minute %}
-            {% assign timer-seconds = block.settings.ecomm-timer-seconds %}
-            {% assign timer-now = "now" | date: "%Y-%m-%d %H:%M" %}
-            <p id="ecomm-timer-value">{{ block.settings.ecomm-timer-month}} {{ block.settings.ecomm-timer-day}}, {{
-                block.settings.ecomm-timer-year}} {{ block.settings.ecomm-timer-hour}}:{{
-                block.settings.ecomm-timer-minute}}:{{ block.settings.ecomm-timer-seconds}}</p>
+            <p class="ecomm-timer-value">{{ block.settings.ecomm-timer-day}}</p>
             {{ block.settings.ecomm-hero-slide-image | image_url: height: 654 | image_tag }}
         </div>
-        <script>
 
-            let countDownDate = new Date(document.getElementById("ecomm-timer-value").innerHTML).getTime();
-
-            console.log(countDownDate);
-            let x = setInterval(function () {
-
-                let now = new Date().getTime();
-                console.log(now);
-
-                let distance = countDownDate - now;
-                console.log(distance);
-
-                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
-                console.log(document.getElementById("ecomm-timer-output").innerHTML)
-                document.getElementById("ecomm-timer-output").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-                if (distance < 0) {
-                    clearInterval(x);
-                    document.getElementById("ecomm-timer-output").innerHTML = "EXPIRED";
-                }
-            }, 1000);
-        </script>
         {%- style -%}
         .ecomm-hero-slide{{iterator}}>img{
         position: absolute;
@@ -197,9 +162,15 @@
         direction: 'horizontal',
         loop: true,
         speed: 3000,
+        on: {
+            init: ecommTimer(),
+        },
         autoplay: {
             delay: 5000,
         }
+    });
+    ecommHeroSlider.on('slideChange', function () {
+        console.log('slide changed');
     });
     const ecommHeroSliderMobile = new Swiper('.ecomm-hero-slider-mobile', {
         direction: 'horizontal',
@@ -214,6 +185,37 @@
             clickable: true
         }
     });
+
+
+
+    function ecommTimer() {
+        let timerDays = document.querySelector('.ecomm-timer-value').innerHTML;
+        let daysInMS = timerDays * 86400000;
+        let countDownDate = new Date().getTime() + daysInMS;
+        let refresh = setInterval(function () {
+
+            let now = new Date().getTime();
+            console.log(now);
+
+            let distance = countDownDate - now;
+
+            console.log(countDownDate + " countdown date");
+            console.log(distance + " distance");
+
+            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            console.log(days + "d " + hours + "h " + minutes + "m " + seconds + "s ");
+            console.log(document.getElementById("ecomm-timer-output").innerHTML)
+            document.getElementById("ecomm-timer-output").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+            if (distance < 0) {
+                clearInterval(refresh);
+                document.getElementById("ecomm-timer-output").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    }
 
 </script>
 <style>
@@ -361,105 +363,10 @@
 "content": "Timer settings"
 },
 {
-"type": "textarea",
-"id": "ecomm-timer",
-"label": "timer",
-"default": "Jul 25, 2023 16:37:52"
-},
-{
-"type": "select",
-"id": "ecomm-timer-month",
-"label": "Select a month",
-"options": [
-{
-"value": "Jan",
-"label": "January"
-},
-{
-"value": "Feb",
-"label": "February"
-},
-{
-"value": "Mar",
-"label": "March"
-},
-{
-"value": "Apr",
-"label": "April"
-},
-{
-"value": "May",
-"label": "May"
-},
-{
-"value": "Jun",
-"label": "June"
-},
-{
-"value": "Jul",
-"label": "July"
-},
-{
-"value": "Aug",
-"label": "August"
-},
-{
-"value": "Sep",
-"label": "September"
-},
-{
-"value": "Oct",
-"label": "October"
-},
-{
-"value": "Nov",
-"label": "November"
-},
-{
-"value": "Dec",
-"label": "December"
-}
-],
-"default": "Dec"
-},
-{
 "type": "text",
 "id": "ecomm-timer-day",
-"label": "Day",
-"default": "1"
-},
-{
-"type": "text",
-"id": "ecomm-timer-year",
-"label": "Year",
-"default": "2022"
-},
-{
-"type": "range",
-"id": "ecomm-timer-hour",
-"min": 0,
-"max": 23,
-"step": 1,
-"label": "Hour",
-"default": 0
-},
-{
-"type": "range",
-"id": "ecomm-timer-minute",
-"min": 0,
-"max": 60,
-"step": 1,
-"label": "Minutes",
-"default": 0
-},
-{
-"type": "range",
-"id": "ecomm-timer-seconds",
-"min": 0,
-"max": 60,
-"step": 1,
-"label": "Seconds",
-"default": 0
+"label": "Timer Days",
+"default": "2"
 }
 ]
 }
