@@ -11,8 +11,7 @@
             "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
             "title-color": "white",
             "title-position": "left-mid",
-            "ecomm-banner-border-radius": 0,
-            "ecomm-timer-day": "2"
+            "ecomm-banner-border-radius": 0
           }
         },
         "ca7aeb93-dab2-4626-baf2-209264e9551b": {
@@ -23,8 +22,7 @@
             "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
             "title-color": "white",
             "title-position": "right-bot",
-            "ecomm-banner-border-radius": 0,
-            "ecomm-timer-day": "23"
+            "ecomm-banner-border-radius": 0
           }
         },
         "07984a91-f75f-488a-9617-f81aa62d1fd0": {
@@ -35,8 +33,7 @@
             "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
             "title-color": "black",
             "title-position": "center-mid",
-            "ecomm-banner-border-radius": 16,
-            "ecomm-timer-day": "1"
+            "ecomm-banner-border-radius": 16
           }
         },
         "7bf8c4e8-45d2-41f9-95b1-8e2e78355fa5": {
@@ -47,8 +44,7 @@
             "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
             "title-color": "white",
             "title-position": "right-mid",
-            "ecomm-banner-border-radius": 50,
-            "ecomm-timer-day": "7"
+            "ecomm-banner-border-radius": 50
           }
         },
         "97b15e31-2c84-4877-b4a4-f9ae54fee92c": {
@@ -59,8 +55,7 @@
             "ecomm-hero-slide-mobile-image": "shopify:\/\/shop_images\/Promotion-Image-mobile.png",
             "title-color": "black",
             "title-position": "left-bot",
-            "ecomm-banner-border-radius": 14,
-            "ecomm-timer-day": "12"
+            "ecomm-banner-border-radius": 14
           }
         }
       },
