@@ -6,7 +6,8 @@
         {% when 'ecomm-slide' %}
         <div class="swiper-slide ecomm-hero-slide{{iterator}}" {{ block.shopify_attributes }}>
             <h2>{{ block.settings.ecomm-hero-slide-title }}</h2>
-            <p class="ecomm-timer-value{{iterator}}">{{ block.settings.ecomm-timer-day}}</p>
+            <p class="ecomm-timer-value{{iterator}} quantityCheck">{{ block.settings.ecomm-timer-day}}</p>
+            <p class="ecomm-timer-output{{iterator}} outputCheck"></p>
             {{ block.settings.ecomm-hero-slide-image | image_url: height: 654 | image_tag }}
         </div>
 
@@ -169,9 +170,6 @@
             delay: 5000,
         }
     });
-    ecommHeroSlider.on('slideChange', function () {
-        ecommTimer();
-    });
     const ecommHeroSliderMobile = new Swiper('.ecomm-hero-slider-mobile', {
         direction: 'horizontal',
         loop: true,
@@ -186,29 +184,35 @@
         }
     });
 
-
-
+    
     function ecommTimer() {
-        let iterator = 1;
-        let timerDays = document.querySelector(`.ecomm-timer-value${iterator}`).innerHTML;
-        iterator += 1;
-        let daysInMS = timerDays * 86400000;
-        let countDownDate = new Date().getTime() + daysInMS;
-        
-        let refresh = setInterval(function () {
+        let refreshIterator = 1;
+        for (let value of document.querySelectorAll(".quantityCheck")){
+            let timerDays = document.querySelector(`.ecomm-timer-value${refreshIterator}`).innerHTML;
+            let daysInMS = timerDays * 86400000;
+            let countDownDate = new Date().getTime() + daysInMS;
+            console.log(refreshIterator);
+            console.log(timerDays);
+            refresh(refreshIterator);
+            function refresh(refreshIterator2) {setInterval(function () {
+                let now = new Date().getTime();
+                let distance = countDownDate - now;
+                let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                if (distance < 0) {
+                    clearInterval(refresh);
+                }
+                var result =  days + "d " + hours + "h " + minutes + "m " + seconds + "s "
+                console.log(refresh);
+                console.log(result);
+                document.querySelector(`.ecomm-timer-output${refreshIterator2}`).innerHTML = result;
+                }, 1000);
+            };
+            refreshIterator += 1;
+        }
 
-            let now = new Date().getTime();
-            let distance = countDownDate - now;
-            let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
-            document.getElementById("ecomm-timer-output").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
-
-            if (distance < 0) {
-                clearInterval(refresh);
-            }
-        }, 1000);
     }
 
 </script>
@@ -242,6 +246,11 @@
 
     .ecomm-hero-slider-wrap-mobile {
         padding: 15px;
+    }
+    .outputCheck{
+        position: absolute;
+        z-index: 9999;
+        color: aqua;
     }
 
     @media screen and (max-width: 990px) {
